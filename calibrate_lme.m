@@ -107,62 +107,6 @@ writetable(T, 'StressIndexCovariateTable.csv');
 clearvars -except T;
 
 %% Calibrate LME
-FE_TMIN = 'TMIN_SON + TMIN_DJF';
-FE_TMAX = 'TMAX_MAM + TMAX_JJA';
-FE_WB = 'WB_SON + WB_DJF + WB_MAM + WB_JJA'; 
-FE_VPD = 'VPD_SON + VPD_DJF + VPD_MAM + VPD_JJA';
-
-% Full model (Fixed effects for site variables and climate variables, with
-% interactions, and random intercepts for site, species, and year)
-FE_Site = '(ELEV + SLOPE + UAA + TWI + SAND + SILT + CLAY + OC + TN + PHCA + VMC2)*';
-mdl = ['Stress ~ ', FE_Site,'(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')+ (1 | Year) + (1 | Site) + (1 | Species)'];
-lme1 = fitlme(T, mdl)
-% BIC = -18615
-
-% Remove useless variables: slope
-FE_Site = '(ELEV + UAA + TWI + SAND + SILT + CLAY + OC + TN + PHCA + VMC2)*';
-mdl = ['Stress ~ ', FE_Site,'(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')+ (1 | Year) + (1 | Site) + (1 | Species)'];
-lme2 = fitlme(T, mdl);
-% BIC = -18734
-
-% Remove useless variables: SAND, SILT, CLAY, OC
-FE_Site = '(ELEV + UAA + TWI + TN + PHCA + VMC2)*';
-mdl = ['Stress ~ ', FE_Site,'(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')+ (1 | Year) + (1 | Site) + (1 | Species)'];
-lme3 = fitlme(T, mdl);
-% BIC = -19194
-
-% Remove useless variables: UAA
-FE_Site = '(ELEV + TWI + TN + PHCA + VMC2)*';
-mdl = ['Stress ~ ', FE_Site,'(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')+ (1 | Year) + (1 | Site) + (1 | Species)'];
-lme4 = fitlme(T, mdl);
-% BIC = -19311
-
-% Remove useless variables: PHCA
-FE_Site = '(ELEV + TWI + TN + VMC2)*';
-mdl = ['Stress ~ ', FE_Site,'(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')+ (1 | Year) + (1 | Site) + (1 | Species)'];
-lme5 = fitlme(T, mdl);
-% BIC = -19411
-
-% Remove useless variables: VMC2
-FE_Site = '(ELEV + TWI + TN)*';
-mdl = ['Stress ~ ', FE_Site,'(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')+ (1 | Year) + (1 | Site) + (1 | Species)'];
-lme6 = fitlme(T, mdl);
-% BIC = -19525
-
-% Experimentation
-FE_Site = '(ELEV + TWI)*';
-mdl = ['Stress ~ ', FE_Site,'(',FE_WB,') + ',FE_TMIN,'+',FE_VPD,'+',FE_TMAX,' - ELEV:WB_JJA + (TMIN_SON:ELEV) + (1 | Species) + (1|Species:Site)'];
-lme7 = fitlme(T, mdl)
-% BIC: -19812
-
-% some observations:
-% model slightly improves (by BIC) when removing TMIN and TMAX (moreso
-% TMAX)
-% model gets worse when removing WB and (especially) VPD
-
-
-
-% Maybe could write something to sequentially remove interaction effects that are least important?
 FE_TMIN = 'TMIN_SON + TMIN_DJF + TMIN_MAM + TMIN_JJA';
 FE_TMAX = 'TMAX_SON + TMAX_DJF + TMAX_MAM + TMAX_JJA';
 FE_WB = 'WB_SON + WB_DJF + WB_MAM + WB_JJA'; 
