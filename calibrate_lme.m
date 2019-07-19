@@ -26,7 +26,7 @@ p = length(AllLabs);
 smonth = 9; % September?
 
 %% Load tree-ring stress estimates and put in table
-load TREESI_wEnvFactors;
+load ./data/TREESI_wEnvFactors;
 
 n = sum([TREESI.END] - syear + 1);
 
