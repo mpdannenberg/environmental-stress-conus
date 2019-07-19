@@ -113,9 +113,53 @@ FE_WB = 'WB_SON + WB_DJF + WB_MAM + WB_JJA';
 FE_VPD = 'VPD_SON + VPD_DJF + VPD_MAM + VPD_JJA';
 FE_Site = '(ELEV + SLOPE + UAA + TWI + SAND + SILT + CLAY + OC + TN + PHCA + VMC2)*';
 
-mdl = ['Stress ~ ', FE_Site,'(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')+ (1 | Year) + (1 | Species) + (1 | Species:Site)'];
+% Initial full model - selection by AIC
+mdl = ['Stress ~ ', FE_Site,'(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')'];
+lme0 = fitlme(T, [mdl,'+ (1 | Year) + (1 | Species) + (1 | Species:Site)']);
 
+aic0 = 0;
+aic1 = lme0.ModelCriterion.AIC;
 
+while aic1 < aic0
+    
+    aic0 = aic1;
+    lme0 = lme1;
+    
+    p = lme0.Coefficients.pValue(2:end);
+    var = lme0.Coefficients.Name(2:end);
+    
+    var2remove = var{p == max(p)};
+    mdl = [mdl, ' - ',var2remove];
+    
+    lme1 = fitlme(T, [mdl,'+ (1 | Year) + (1 | Species) + (1 | Species:Site)']);
+    
+    aic1 = lme1.ModelCriterion.AIC;
+    
+end
+
+% Initial full model - selection by BIC
+mdl = ['Stress ~ ', FE_Site,'(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')'];
+lme0 = fitlme(T, [mdl,'+ (1 | Year) + (1 | Species) + (1 | Species:Site)']);
+
+bic0 = 0;
+bic1 = lme0.ModelCriterion.BIC;
+
+while bic1 < bic0
+    
+    bic0 = bic1;
+    lme0 = lme1;
+    
+    p = lme0.Coefficients.pValue(2:end);
+    var = lme0.Coefficients.Name(2:end);
+    
+    var2remove = var{p == max(p)};
+    mdl = [mdl, ' - ',var2remove];
+    
+    lme1 = fitlme(T, [mdl,'+ (1 | Year) + (1 | Species) + (1 | Species:Site)']);
+    
+    bic1 = lme1.ModelCriterion.BIC;
+    
+end
 
 
 
