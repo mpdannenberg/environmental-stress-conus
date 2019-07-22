@@ -7,31 +7,45 @@ psme = csvread('./data/DBH_Comparison_PSME.csv', 1, 2);
 acru = csvread('./data/DBH_Comparison_ACRU.csv', 1, 2);
 quco = csvread('./data/DBH_Comparison_QUCO.csv', 1, 2);
 quve = csvread('./data/DBH_Comparison_QUVE.csv', 1, 2);
+qusp = [quco; quve];
 
 h = figure('Color','w');
 h.Units = 'inches';
-h.Position = [1 1 6.7 9];
+h.Position = [1 1 5 6];
 
 subplot(3,1,[1 2])
 plot(pipo(:, 2), pipo(:, 1), 'o', 'Color','k', 'LineWidth',...
     1.2, 'MarkerSize',5);
-set(gca, 'XLim',[0 150], 'YLim',[0 150]);
+set(gca, 'XLim',[0 150], 'YLim',[0 150], 'TickDir','out', 'TickLength',[0.025 0.05]);
+box off;
 hold on;
-plot([0 150], [0 150], '-', 'Color',[0.4 0.4 0.4]);
+plot([0 150], [0 150], '-', 'Color',[0.6 0.6 0.6]);
 plot(psme(:, 2), psme(:, 1), 'o', 'Color',[228,26,28]/255, 'LineWidth',...
     1.2, 'MarkerSize',5);
+plot(acru(:, 2), acru(:, 1), 'o', 'Color','k', 'LineWidth',...
+    1.2, 'MarkerSize',5);
+plot(qusp(:, 2), qusp(:, 1), 'o', 'Color',[55,126,184]/255, 'LineWidth',...
+    1.2, 'MarkerSize',5);
 [r, p] = corr(pipo, 'type','Spearman');
-text(5, 142, '\itPinus ponderosa', 'FontSize',11)
+text(5, 142, '\itP. ponderosa', 'FontSize',11)
 text(5, 136, ['n = ', num2str(length(pipo(:, 2)))], 'FontSize',11)
 text(5, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11)
 [r, p] = corr(psme, 'type','Spearman');
-text(5, 118, '\itPseudotsuga menziesii', 'FontSize',11, 'Color',[228,26,28]/255)
+text(5, 118, '\itP. menziesii', 'FontSize',11, 'Color',[228,26,28]/255)
 text(5, 112, ['n = ', num2str(length(psme(:, 2)))], 'FontSize',11, 'Color',[228,26,28]/255)
 text(5, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',[228,26,28]/255)
+[r, p] = corr(acru, 'type','Spearman');
+text(45, 142, '\itA. rubrum', 'FontSize',11)
+text(45, 136, ['n = ', num2str(length(acru(:, 2)))], 'FontSize',11)
+text(45, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11)
+[r, p] = corr(qusp, 'type','Spearman');
+text(45, 118, '\itQuercus sp.', 'FontSize',11, 'Color',[55,126,184]/255)
+text(45, 112, ['n = ', num2str(length(quco(:, 2)))], 'FontSize',11, 'Color',[55,126,184]/255)
+text(45, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',[55,126,184]/255)
 xlabel('Measured DBH (cm)', 'FontSize',12);
 ylabel('Estimated DBH (cm)', 'FontSize',12);
 set(gca, 'Position',[0.1300    0.43    0.7750    0.5154]);
-text(-20, 150, '(a)', 'FontSize',14, 'FontWeight','bold');
+text(-24, 150, 'A', 'FontSize',14, 'FontWeight','bold');
 
 subplot(3, 1, 3)
 histogram(pipo(:, 1)-pipo(:, 2), -100:5:20, 'FaceAlpha',1, 'FaceColor','k', 'EdgeColor',[0.4 0.4 0.4]);
@@ -73,6 +87,7 @@ psme = csvread('./data/Sensitivity_PSME.csv', 1, 2);
 acru = csvread('./data/Sensitivity_ACRU.csv', 1, 2);
 quco = csvread('./data/Sensitivity_QUCO.csv', 1, 2);
 quve = csvread('./data/Sensitivity_QUVE.csv', 1, 2);
+qusp = [quco; quve];
 
 % Plots: PIPO
 Dstar = pipo(:,1);
