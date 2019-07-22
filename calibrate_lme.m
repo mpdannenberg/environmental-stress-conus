@@ -106,16 +106,46 @@ writetable(T, 'StressIndexCovariateTable.csv');
 
 clearvars -except T;
 
+%% Check correlations of climate variables
+test = T{:, 14:29};
+r = corr(test, 'rows','pairwise');
+imagesc(r)
+caxis([-1 1])
+clr = cbrewer('div','RdBu',10);
+colormap(clr)
+
+%% Check correlations of soil/topographic variables
+test = T{:, 3:13};
+r = corr(test, 'rows','pairwise');
+imagesc(r)
+caxis([-1 1])
+clr = cbrewer('div','RdBu',10);
+colormap(clr)
+
+%% Notes
+% High correlation of temperature variables
+% High correlation amongst seasonal composites
+% High correlation of TWI to slope & UAA (obviously)
+% High correlation of sand, silt and clay contents (also obvious)
+% Low correlation between soil and topographic variables
+% Low correlation among most soil variables (except above)
+
 %% Calibrate LME
+% First, initiate model with fixed effects for each term, but no
+% interactions
 FE_TMIN = 'TMIN_SON + TMIN_DJF + TMIN_MAM + TMIN_JJA';
 FE_TMAX = 'TMAX_SON + TMAX_DJF + TMAX_MAM + TMAX_JJA';
 FE_WB = 'WB_SON + WB_DJF + WB_MAM + WB_JJA'; 
 FE_VPD = 'VPD_SON + VPD_DJF + VPD_MAM + VPD_JJA';
-FE_Site = '(ELEV + SLOPE + UAA + TWI + SAND + SILT + CLAY + OC + TN + PHCA + VMC2)*';
+FE_Site = '(ELEV + SLOPE + UAA + TWI + SAND + SILT + CLAY + OC + TN + PHCA + VMC2)';
+
+mdl = ['Stress ~ ', FE_Site,'+(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')'];
+lme0 = fitlme(T, [mdl,'+ (1 | Species) + (1 | Species:Site)']);
+
 
 % Initial full model - selection by AIC
-mdl = ['Stress ~ ', FE_Site,'(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')'];
-lme0 = fitlme(T, [mdl,'+ (1 | Year) + (1 | Species) + (1 | Species:Site)']);
+mdl = ['Stress ~ ', FE_Site,'*(',FE_TMIN,'+',FE_TMAX,'+',FE_WB,'+',FE_VPD,')'];
+lme0 = fitlme(T, [mdl,'+ (1 | Species) + (1 | Species:Site)']);
 
 aic0 = 0;
 aic1 = lme0.ModelCriterion.AIC;
