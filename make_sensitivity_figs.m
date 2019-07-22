@@ -2,13 +2,11 @@
 
 %% Bias in DBH measurements (Fig. A12 of diss.)
 
-cd PIPO;
-pipo = csvread('DBH_Comparison_PIPO.csv', 1, 2);
-% cd ../PIFL;
-% pifl = csvread('DBH_Comparison_PIFL.csv', 1, 2);
-cd ../PSME;
-psme = csvread('DBH_Comparison_PSME.csv', 1, 2);
-cd ..;
+pipo = csvread('./data/DBH_Comparison_PIPO.csv', 1, 2);
+psme = csvread('./data/DBH_Comparison_PSME.csv', 1, 2);
+acru = csvread('./data/DBH_Comparison_ACRU.csv', 1, 2);
+quco = csvread('./data/DBH_Comparison_QUCO.csv', 1, 2);
+quve = csvread('./data/DBH_Comparison_QUVE.csv', 1, 2);
 
 h = figure('Color','w');
 h.Units = 'inches';
@@ -63,7 +61,7 @@ text(-116, 60, '(b)', 'FontSize',14, 'FontWeight','bold');
 set(gca, 'Position',[0.1300    0.09    0.7750    0.2157]);
 
 set(gcf,'PaperPositionMode','auto')
-print('-dtiff','-f1','-r300','Fig_DBHbias_noPIFL.tif')
+print('-dtiff','-f1','-r300','./output/dbh-bias.tif')
 close all;
 
 
@@ -298,7 +296,7 @@ ylabel('\DeltaD_{opt}^{*} bias (cm)');
 xlabel('D^{*} (cm)');
 
 set(gcf,'PaperPositionMode','auto')
-print('-dtiff','-f1','-r300','Fig_Dopt_bias_noPIFL.tif')
+print('-dtiff','-f1','-r300','./output/dopt-bias.tif')
 close all;
 
 
@@ -341,7 +339,7 @@ ylabel('S^{*} bias');
 xlabel('D^{*} (cm)');
 
 set(gcf,'PaperPositionMode','auto')
-print('-dtiff','-f1','-r300','Fig_S_bias_noPIFL.tif')
+print('-dtiff','-f1','-r300','./output/s_bias.tif')
 close all;
 
 
