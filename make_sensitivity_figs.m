@@ -284,27 +284,49 @@ end
 %% Dopt bias
 h = figure('Color','w');
 h.Units = 'inches';
-h.Position = [1 1 6.7 5.5];
+h.Position = [1 1 5 6];
 
-ax = tight_subplot(2,1,0,[0.1 0.05], [0.1 0.05]);
+ax = tight_subplot(4,1,0.05,[0.1 0.05], [0.12 0.05]);
 
 axes(ax(1))
-fill([PIPO.Dopt.bins fliplr(PIPO.Dopt.bins)], [PIPO.Dopt.lci fliplr(PIPO.Dopt.uci)], 'k', 'FaceAlpha',0.4, 'EdgeColor','none')
-set(gca, 'YLim',[-0.44 0.14],'XLim', [0 90], 'XTickLabels','');
+fill([PIPO.Dopt.bins fliplr(PIPO.Dopt.bins)], [PIPO.Dopt.lci fliplr(PIPO.Dopt.uci)], clr(1,:), 'FaceAlpha',0.8, 'EdgeColor','none')
+set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.015 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
-plot(PIPO.Dopt.bins, PIPO.Dopt.y, 'k-','LineWidth',1.2);
-text(2, 0.09, '\itPinus ponderosa', 'FontSize',12, 'Color','k');
+plot(PIPO.Dopt.bins, PIPO.Dopt.y, '-','LineWidth',2, 'Color',clr(1,:)*0.7);
+text(2, 0.19, '\itP. ponderosa', 'FontSize',12, 'Color',clr(1,:)*0.7);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
+box off;
 
 axes(ax(2))
-fill([PSME.Dopt.bins fliplr(PSME.Dopt.bins)], [PSME.Dopt.lci fliplr(PSME.Dopt.uci)], [228,26,28]/255, 'FaceAlpha',0.4, 'EdgeColor','none')
-set(gca, 'YLim',[-0.44 0.14],'XLim', [0 90]);
+fill([PSME.Dopt.bins fliplr(PSME.Dopt.bins)], [PSME.Dopt.lci fliplr(PSME.Dopt.uci)], clr(2,:), 'FaceAlpha',0.4, 'EdgeColor','none')
+set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.015 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
-plot(PSME.Dopt.bins, PSME.Dopt.y, '-','LineWidth',1.2, 'Color',[228,26,28]/255);
-text(2, 0.09, '\itPseudotsuga menziesii', 'FontSize',12, 'Color',[228,26,28]/255);
+plot(PSME.Dopt.bins, PSME.Dopt.y, '-','LineWidth',2, 'Color',clr(2,:));
+text(2, 0.19, '\itP. menziesii', 'FontSize',12, 'Color',clr(2,:));
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
+box off;
+
+axes(ax(3))
+fill([ACRU.Dopt.bins fliplr(ACRU.Dopt.bins)], [ACRU.Dopt.lci fliplr(ACRU.Dopt.uci)], clr(3,:), 'FaceAlpha',1, 'EdgeColor','none')
+set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.015 0.05]);
+hold on;
+plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
+plot(ACRU.Dopt.bins, ACRU.Dopt.y, '-','LineWidth',2, 'Color',clr(3,:)*0.7);
+text(2, 0.19, '\itA. rubrum', 'FontSize',12, 'Color',clr(3,:)*0.7);
+ylabel('\DeltaD_{opt}^{*} bias (cm)');
+box off;
+
+axes(ax(4))
+fill([QUSP.Dopt.bins fliplr(QUSP.Dopt.bins)], [QUSP.Dopt.lci fliplr(QUSP.Dopt.uci)], clr(4,:), 'FaceAlpha',0.4, 'EdgeColor','none')
+set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'TickDir','out', 'TickLength',[0.015 0.05]);
+hold on;
+plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
+plot(QUSP.Dopt.bins, QUSP.Dopt.y, '-','LineWidth',2, 'Color',clr(4,:));
+text(2, 0.19, '\itQuercus sp.', 'FontSize',12, 'Color',clr(4,:));
+ylabel('\DeltaD_{opt}^{*} bias (cm)');
+box off;
 xlabel('D^{*} (cm)');
 
 set(gcf,'PaperPositionMode','auto')
