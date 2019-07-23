@@ -337,27 +337,49 @@ close all;
 %% S bias
 h = figure('Color','w');
 h.Units = 'inches';
-h.Position = [1 1 6.7 5.5];
+h.Position = [1 1 5 6];
 
-ax = tight_subplot(2,1,0,[0.1 0.05], [0.1 0.05]);
+ax = tight_subplot(4,1,0.05,[0.1 0.05], [0.12 0.05]);
 
 axes(ax(1))
-fill([PIPO.S.bins fliplr(PIPO.S.bins)], [PIPO.S.lci fliplr(PIPO.S.uci)], 'k', 'FaceAlpha',0.4, 'EdgeColor','none')
-set(gca, 'YLim',[-0.28 0.85],'XLim', [0 90], 'XTickLabels','');
+fill([PIPO.S.bins fliplr(PIPO.S.bins)], [PIPO.S.lci fliplr(PIPO.S.uci)], clr(1,:), 'FaceAlpha',0.8, 'EdgeColor','none')
+set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.015 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
-plot(PIPO.S.bins, PIPO.S.y, 'k-','LineWidth',1.2);
-text(8, 0.76, '\itPinus ponderosa', 'FontSize',12, 'Color','k');
+plot(PIPO.S.bins, PIPO.S.y, '-','LineWidth',2, 'Color',clr(1,:)*0.7);
+text(6, 0.96, '\itP. ponderosa', 'FontSize',12, 'Color',clr(1,:)*0.7);
 ylabel('S^{*} bias');
+box off;
 
 axes(ax(2))
-fill([PSME.S.bins fliplr(PSME.S.bins)], [PSME.S.lci fliplr(PSME.S.uci)], [228,26,28]/255, 'FaceAlpha',0.4, 'EdgeColor','none')
-set(gca, 'YLim',[-0.28 0.85],'XLim', [0 90]);
+fill([PSME.S.bins fliplr(PSME.S.bins)], [PSME.S.lci fliplr(PSME.S.uci)], clr(2,:), 'FaceAlpha',0.4, 'EdgeColor','none')
+set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.015 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
-plot(PSME.S.bins, PSME.S.y, '-','LineWidth',1.2, 'Color',[228,26,28]/255);
-text(8, 0.76, '\itPseudotsuga menziesii', 'FontSize',12, 'Color',[228,26,28]/255);
+plot(PSME.S.bins, PSME.S.y, '-','LineWidth',2, 'Color',clr(2,:));
+text(6, 0.96, '\itP. menziesii', 'FontSize',12, 'Color',clr(2,:));
 ylabel('S^{*} bias');
+box off;
+
+axes(ax(3))
+fill([ACRU.S.bins(2:end) fliplr(ACRU.S.bins(2:end))], [ACRU.S.lci(2:end) fliplr(ACRU.S.uci(2:end))], clr(3,:), 'FaceAlpha',1, 'EdgeColor','none')
+set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.015 0.05]);
+hold on;
+plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
+plot(ACRU.S.bins, ACRU.S.y, '-','LineWidth',2, 'Color',clr(3,:)*0.7);
+text(6, 0.96, '\itA. rubrum', 'FontSize',12, 'Color',clr(3,:)*0.7);
+ylabel('S^{*} bias');
+box off;
+
+axes(ax(4))
+fill([QUSP.S.bins(2:end) fliplr(QUSP.S.bins(2:end))], [QUSP.S.lci(2:end) fliplr(QUSP.S.uci(2:end))], clr(4,:), 'FaceAlpha',0.4, 'EdgeColor','none')
+set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'TickDir','out', 'TickLength',[0.015 0.05]);
+hold on;
+plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
+plot(QUSP.S.bins, QUSP.S.y, '-','LineWidth',2, 'Color',clr(4,:));
+text(6, 0.96, '\itQuercus sp.', 'FontSize',12, 'Color',clr(4,:));
+ylabel('S^{*} bias');
+box off;
 xlabel('D^{*} (cm)');
 
 set(gcf,'PaperPositionMode','auto')
