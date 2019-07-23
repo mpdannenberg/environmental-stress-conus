@@ -1,4 +1,5 @@
 % New supplemental figures for Global Ecol & Biogeogr paper
+clr = wesanderson('fantasticfox1');
 
 %% Bias in DBH measurements (Fig. A12 of diss.)
 
@@ -14,48 +15,56 @@ h.Units = 'inches';
 h.Position = [1 1 5 6];
 
 subplot(3,1,[1 2])
-plot(pipo(:, 2), pipo(:, 1), 'o', 'Color','k', 'LineWidth',...
+plot(pipo(:, 2), pipo(:, 1), 'o', 'Color',clr(1, :), 'LineWidth',...
     1.2, 'MarkerSize',5);
-set(gca, 'XLim',[0 150], 'YLim',[0 150], 'TickDir','out', 'TickLength',[0.025 0.05]);
+set(gca, 'XLim',[0 150], 'YLim',[0 150], 'TickDir','out', 'TickLength',[0.025 0.05], 'FontSize',9);
 box off;
 hold on;
 plot([0 150], [0 150], '-', 'Color',[0.6 0.6 0.6]);
-plot(psme(:, 2), psme(:, 1), 'o', 'Color',[228,26,28]/255, 'LineWidth',...
+plot(psme(:, 2), psme(:, 1), 'o', 'Color',clr(2, :), 'LineWidth',...
     1.2, 'MarkerSize',5);
-plot(acru(:, 2), acru(:, 1), 'o', 'Color','k', 'LineWidth',...
+plot(acru(:, 2), acru(:, 1), 'o', 'Color',clr(3, :), 'LineWidth',...
     1.2, 'MarkerSize',5);
-plot(qusp(:, 2), qusp(:, 1), 'o', 'Color',[55,126,184]/255, 'LineWidth',...
+plot(qusp(:, 2), qusp(:, 1), 'o', 'Color',clr(4, :), 'LineWidth',...
     1.2, 'MarkerSize',5);
 [r, p] = corr(pipo, 'type','Spearman');
-text(5, 142, '\itP. ponderosa', 'FontSize',11)
-text(5, 136, ['n = ', num2str(length(pipo(:, 2)))], 'FontSize',11)
-text(5, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11)
+text(5, 142, '\itP. ponderosa', 'FontSize',11, 'Color',clr(1, :))
+text(5, 136, ['n = ', num2str(length(pipo(:, 2)))], 'FontSize',11, 'Color',clr(1, :))
+text(5, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(1, :))
 [r, p] = corr(psme, 'type','Spearman');
-text(5, 118, '\itP. menziesii', 'FontSize',11, 'Color',[228,26,28]/255)
-text(5, 112, ['n = ', num2str(length(psme(:, 2)))], 'FontSize',11, 'Color',[228,26,28]/255)
-text(5, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',[228,26,28]/255)
+text(5, 118, '\itP. menziesii', 'FontSize',11, 'Color',clr(2, :))
+text(5, 112, ['n = ', num2str(length(psme(:, 2)))], 'FontSize',11, 'Color',clr(2, :))
+text(5, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(2, :))
 [r, p] = corr(acru, 'type','Spearman');
-text(45, 142, '\itA. rubrum', 'FontSize',11)
-text(45, 136, ['n = ', num2str(length(acru(:, 2)))], 'FontSize',11)
-text(45, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11)
+text(45, 142, '\itA. rubrum', 'FontSize',11, 'Color',clr(3, :))
+text(45, 136, ['n = ', num2str(length(acru(:, 2)))], 'FontSize',11, 'Color',clr(3, :))
+text(45, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(3, :))
 [r, p] = corr(qusp, 'type','Spearman');
-text(45, 118, '\itQuercus sp.', 'FontSize',11, 'Color',[55,126,184]/255)
-text(45, 112, ['n = ', num2str(length(quco(:, 2)))], 'FontSize',11, 'Color',[55,126,184]/255)
-text(45, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',[55,126,184]/255)
+text(45, 118, '\itQuercus sp.', 'FontSize',11, 'Color',clr(4, :))
+text(45, 112, ['n = ', num2str(length(quco(:, 2)))], 'FontSize',11, 'Color',clr(4, :))
+text(45, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(4, :))
 xlabel('Measured DBH (cm)', 'FontSize',12);
 ylabel('Estimated DBH (cm)', 'FontSize',12);
 set(gca, 'Position',[0.1300    0.43    0.7750    0.5154]);
-text(-24, 150, 'A', 'FontSize',14, 'FontWeight','bold');
+text(-23, 150, 'A', 'FontSize',14, 'FontWeight','bold');
 
 subplot(3, 1, 3)
-histogram(pipo(:, 1)-pipo(:, 2), -100:5:20, 'FaceAlpha',1, 'FaceColor','k', 'EdgeColor',[0.4 0.4 0.4]);
-set(gca, 'YLim',[0 60]);
-hold on;
-histogram(psme(:, 1)-psme(:, 2), -100:5:20, 'FaceAlpha',1, 'FaceColor',[228,26,28]/255, 'EdgeColor',[0.4 0.4 0.4]);
+Y1 = histcounts(pipo(:, 1)-pipo(:, 2), -100:5:20);
+Y2 = histcounts(psme(:, 1)-psme(:, 2), -100:5:20);
+Y3 = histcounts(acru(:, 1)-acru(:, 2), -100:5:20);
+Y4 = histcounts(qusp(:, 1)-qusp(:, 2), -100:5:20);
+Y = [Y1' Y2' Y3' Y4'];
+b = bar((-100+2.5):5:(20-2.5), Y, 1, 'stacked', 'EdgeColor',[0.4 0.4 0.4]);
+b(1).FaceColor = clr(1, :);
+b(2).FaceColor = clr(2, :);
+b(3).FaceColor = clr(3, :);
+b(4).FaceColor = clr(4, :);
+set(gca, 'YLim',[0 150], 'TickDir','out', 'TickLength',[0.025 0.05], 'FontSize',9);
+set(gca, 'Position',[0.1300    0.09    0.7750    0.2157]);
+box off;
 xlabel('DBH bias (cm)', 'FontSize',12);
 ylabel('Count', 'FontSize',12);
-text(-116, 60, '(b)', 'FontSize',14, 'FontWeight','bold');
-set(gca, 'Position',[0.1300    0.09    0.7750    0.2157]);
+text(-124, 150, 'B', 'FontSize',14, 'FontWeight','bold');
 
 set(gcf,'PaperPositionMode','auto')
 print('-dtiff','-f1','-r300','./output/dbh-bias.tif')
