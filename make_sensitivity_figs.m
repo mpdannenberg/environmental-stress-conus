@@ -85,6 +85,19 @@ fprintf(['Mean bias: ', num2str(mean(psme(:, 1)-psme(:, 2))),'\n']);
 fprintf(['Median bias: ', num2str(median(psme(:, 1)-psme(:, 2))),'\n']);
 fprintf('\n');
 
+% ACRU
+fprintf('\n');
+fprintf('ACRU:\n');
+fprintf(['Mean bias: ', num2str(mean(acru(:, 1)-acru(:, 2))),'\n']);
+fprintf(['Median bias: ', num2str(median(acru(:, 1)-acru(:, 2))),'\n']);
+fprintf('\n');
+
+% QUSP
+fprintf('QUSP:\n');
+fprintf(['Mean bias: ', num2str(mean(qusp(:, 1)-qusp(:, 2))),'\n']);
+fprintf(['Median bias: ', num2str(median(qusp(:, 1)-qusp(:, 2))),'\n']);
+fprintf('\n');
+
 
 %% Sensitivity figures
 nbins = 100; % Number of bins within which to calculate median and quantiles
