@@ -104,11 +104,11 @@ nbins = 100; % Number of bins within which to calculate median and quantiles
 quants = [0.025 0.975];
 
 % 1-D*, 2-D, 3-Dopt*, 4-Dopt, 5-dD, 6-Dopt bias, 7-S*, 8-S, 9-S bias
-pipo = csvread('./data/Sensitivity_PIPO.csv', 1, 2);
-psme = csvread('./data/Sensitivity_PSME.csv', 1, 2);
-acru = csvread('./data/Sensitivity_ACRU.csv', 1, 2);
-quco = csvread('./data/Sensitivity_QUCO.csv', 1, 2);
-quve = csvread('./data/Sensitivity_QUVE.csv', 1, 2);
+pipo = csvread('./data/Sensitivity_PIPO.csv', 1, 1);
+psme = csvread('./data/Sensitivity_PSME.csv', 1, 1);
+acru = csvread('./data/Sensitivity_ACRU.csv', 1, 1);
+quco = csvread('./data/Sensitivity_QUCO.csv', 1, 1);
+quve = csvread('./data/Sensitivity_QUVE.csv', 1, 1);
 qusp = [quco; quve];
 
 % Plots: PIPO
@@ -116,7 +116,6 @@ Dstar = pipo(:,1);
 Dopt_bias = pipo(:, 6);
 S_bias = pipo(:, 9);
 S_bias(~isfinite(S_bias)) = NaN;
-
 
 PIPO.Dopt.y = NaN(1, nbins);
 PIPO.Dopt.uci = NaN(1, nbins);
@@ -195,6 +194,91 @@ for i = 1:nbins
     PSME.S.uci(i) = cis(2);
     
 end
+
+% Plots: ACRU
+Dstar = acru(:,1);
+Dopt_bias = acru(:, 6);
+S_bias = acru(:, 9);
+S_bias(~isfinite(S_bias)) = NaN;
+
+ACRU.Dopt.y = NaN(1, nbins);
+ACRU.Dopt.uci = NaN(1, nbins);
+ACRU.Dopt.lci = NaN(1, nbins);
+ACRU.S.y = NaN(1, nbins);
+ACRU.S.uci = NaN(1, nbins);
+ACRU.S.lci = NaN(1, nbins);
+
+x = quantile(Dstar, 0:(1/nbins):1);
+bins = (0+(0.5/nbins)):(1/nbins):(1-(0.5/nbins));
+bins = quantile(Dstar, bins);
+ACRU.Dopt.bins = bins;
+ACRU.S.bins = bins;
+
+for i = 1:nbins
+    
+    if i==1
+        idx = Dstar>=x(i) & Dstar<=x(i+1);
+    else
+        idx = Dstar>x(i) & Dstar<=x(i+1);
+    end
+    Dopt_sub = Dopt_bias(idx);
+    S_sub = S_bias(idx);
+    
+    ACRU.Dopt.y(i) = median(Dopt_sub);
+    ACRU.S.y(i) = median(S_sub);
+    
+    cis = quantile(Dopt_sub, quants);
+    ACRU.Dopt.lci(i) = cis(1);
+    ACRU.Dopt.uci(i) = cis(2);
+    
+    cis = quantile(S_sub, quants);
+    ACRU.S.lci(i) = cis(1);
+    ACRU.S.uci(i) = cis(2);
+    
+end
+
+% Plots: QUSP
+Dstar = qusp(:,1);
+Dopt_bias = qusp(:, 6);
+S_bias = qusp(:, 9);
+S_bias(~isfinite(S_bias)) = NaN;
+
+QUSP.Dopt.y = NaN(1, nbins);
+QUSP.Dopt.uci = NaN(1, nbins);
+QUSP.Dopt.lci = NaN(1, nbins);
+QUSP.S.y = NaN(1, nbins);
+QUSP.S.uci = NaN(1, nbins);
+QUSP.S.lci = NaN(1, nbins);
+
+x = quantile(Dstar, 0:(1/nbins):1);
+bins = (0+(0.5/nbins)):(1/nbins):(1-(0.5/nbins));
+bins = quantile(Dstar, bins);
+QUSP.Dopt.bins = bins;
+QUSP.S.bins = bins;
+
+for i = 1:nbins
+    
+    if i==1
+        idx = Dstar>=x(i) & Dstar<=x(i+1);
+    else
+        idx = Dstar>x(i) & Dstar<=x(i+1);
+    end
+    Dopt_sub = Dopt_bias(idx);
+    S_sub = S_bias(idx);
+    
+    QUSP.Dopt.y(i) = median(Dopt_sub);
+    QUSP.S.y(i) = median(S_sub);
+    
+    cis = quantile(Dopt_sub, quants);
+    QUSP.Dopt.lci(i) = cis(1);
+    QUSP.Dopt.uci(i) = cis(2);
+    
+    cis = quantile(S_sub, quants);
+    QUSP.S.lci(i) = cis(1);
+    QUSP.S.uci(i) = cis(2);
+    
+end
+
 
 
 %% Dopt bias
