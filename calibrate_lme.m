@@ -106,30 +106,6 @@ writetable(T, 'StressIndexCovariateTable.csv');
 
 clearvars -except T;
 
-%% Check correlations of climate variables
-test = T{:, 14:29};
-r = corr(test, 'rows','pairwise');
-imagesc(r)
-caxis([-1 1])
-clr = cbrewer('div','RdBu',10);
-colormap(clr)
-
-%% Check correlations of soil/topographic variables
-test = T{:, 3:13};
-r = corr(test, 'rows','pairwise');
-imagesc(r)
-caxis([-1 1])
-clr = cbrewer('div','RdBu',10);
-colormap(clr)
-
-%% Notes
-% High correlation of temperature variables
-% High correlation amongst seasonal composites
-% High correlation of TWI to slope & UAA (obviously)
-% High correlation of sand, silt and clay contents (also obvious)
-% Low correlation between soil and topographic variables
-% Low correlation among most soil variables (except above)
-
 %% Calibrate LME
 % Initiate model with fixed effects for each term, but no interactions
 % Variables selected from RF model variable importance
