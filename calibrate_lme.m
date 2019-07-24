@@ -115,31 +115,6 @@ FE_VPD = 'VPD_JJA';
 FE_Site = '(ELEV + TWI + SILT + OC + TN + PHCA)';
 np = 9; % number of predictors
 
-% Initial full model - selection by AIC
-mdl = ['Stress ~ ', FE_Site,'*(',FE_TMIN,'+',FE_WB,'+',FE_VPD,')'];
-lme0_aic = fitlme(T, [mdl,'+ (1 | Species) + (1 | Species:Site)']);
-
-aic0 = 0;
-aic1 = lme0_aic.ModelCriterion.AIC;
-lme1 = lme0_aic;
-
-while aic1 < aic0
-    
-    aic0 = aic1;
-    lme0_aic = lme1;
-    
-    p = lme0_aic.Coefficients.pValue((np+1):end);
-    var = lme0_aic.Coefficients.Name((np+1):end);
-    
-    var2remove = var{p == max(p)};
-    mdl = [mdl, ' - ',var2remove];
-    
-    lme1 = fitlme(T, [mdl,'+ (1 | Species) + (1 | Species:Site)']);
-    
-    aic1 = lme1.ModelCriterion.AIC;
-    
-end
-
 % Initial full model - selection by BIC
 mdl = ['Stress ~ ', FE_Site,'*(',FE_TMIN,'+',FE_WB,'+',FE_VPD,')'];
 lme0_bic = fitlme(T, [mdl,'+ (1 | Species) + (1 | Species:Site)']);
