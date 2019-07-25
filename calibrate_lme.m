@@ -113,11 +113,12 @@ FE_TMIN = 'TMIN_DJF';
 FE_WB = 'WB_DJF'; 
 FE_VPD = 'VPD_JJA';
 FE_Site = '(ELEV + TWI + SILT + OC + TN + PHCA)';
-np = 9; % number of predictors
+REff = ['+ (',FE_TMIN,' | Species) + (',FE_WB,' | Species) + (',FE_VPD,' | Species) + (1 | Species:Site)'];
+np = 4; % number of predictors (intercept + main effects)
 
 % Initial full model - selection by BIC
-mdl = ['Stress ~ ', FE_Site,'*(',FE_TMIN,'+',FE_WB,'+',FE_VPD,')'];
-lme0_bic = fitlme(T, [mdl,'+ (1 | Species) + (1 | Species:Site)']);
+mdl = ['Stress ~ ','(',FE_TMIN,'+',FE_WB,'+',FE_VPD,')*', FE_Site, ' - ', FE_Site];
+lme0_bic = fitlme(T, [mdl,REff]);
 
 bic0 = 0;
 bic1 = lme0_bic.ModelCriterion.BIC;
@@ -134,7 +135,7 @@ while bic1 < bic0
     var2remove = var{p == max(p)};
     mdl = [mdl, ' - ',var2remove];
     
-    lme1 = fitlme(T, [mdl,'+ (1 | Species) + (1 | Species:Site)']);
+    lme1 = fitlme(T, [mdl,REff]);
     
     bic1 = lme1.ModelCriterion.BIC;
     
@@ -229,11 +230,12 @@ FE_TMIN = 'TMIN_DJF';
 FE_WB = 'WB_DJF'; 
 FE_VPD = 'VPD_JJA';
 FE_Site = '(ELEV + TWI + SILT + OC + TN + PHCA)';
-np = 9; % number of predictors
+REff = ['+ (',FE_TMIN,' | Species) + (',FE_WB,' | Species) + (',FE_VPD,' | Species) + (1 | Species:Site)'];
+np = 4; % number of predictors
 
 % Initial full model - selection by BIC
-mdl = ['Stress ~ ', FE_Site,'*(',FE_TMIN,'+',FE_WB,'+',FE_VPD,')'];
-lme0_bic = fitlme(T, [mdl,'+ (1 | Species) + (1 | Species:Site)']);
+mdl = ['Stress ~ ','(',FE_TMIN,'+',FE_WB,'+',FE_VPD,')*', FE_Site, ' - ', FE_Site];
+lme0_bic = fitlme(T, [mdl,REff]);
 
 bic0 = 10000;
 bic1 = lme0_bic.ModelCriterion.BIC;
@@ -250,7 +252,7 @@ while bic1 < bic0
     var2remove = var{p == max(p)};
     mdl = [mdl, ' - ',var2remove];
     
-    lme1 = fitlme(T, [mdl,'+ (1 | Species) + (1 | Species:Site)']);
+    lme1 = fitlme(T, [mdl,REff]);
     
     bic1 = lme1.ModelCriterion.BIC;
     
