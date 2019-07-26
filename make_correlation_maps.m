@@ -1,8 +1,7 @@
-%%
-%% NEED TO UPDATE THIS FOR CORRELATIONS INSTEAD OF IMPORTANCE
-%%
+% Map spearman rank correlations between climate variables and
+% environmental stress index
 
-% Map variable importance
+alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 % Number of vars for each environmental stress type
 nTopo = 4;
@@ -21,7 +20,7 @@ AllLabs = [TopoLabs SoilLabs TempLabs WaterLabs];
 
 p = length(AllLabs);
 
-load TREESI_wEnvFactors;
+load ./data/TREESI_wEnvFactors;
 
 EcoL1 = [TREESI.EcoL1];
 EcoL2 = [TREESI.EcoL2];
@@ -37,219 +36,26 @@ L3list = sort(unique(EcoL3));
 L3list = L3list(L3list >0);
 
 
-cd RF_v4_TSC;
-load RF_v4_TSC_stats;
-cd ..;
-
-cd EcoRegions;
-[EcoL1, R] = geotiffread('us_EcoL1_4km.tif');
-[EcoL2] = geotiffread('us_EcoL2_4km.tif');
-[EcoL3] = geotiffread('us_EcoL3_4km.tif');
-cd ../PRISM;
-load prism_latlon;
-cd ..;
-load conus_mask;
+load ./data/RF_v4_TSC_stats;
+[EcoL1, R] = geotiffread('./data/us_EcoL1_4km.tif');
+[EcoL2] = geotiffread('./data/us_EcoL2_4km.tif');
+[EcoL3] = geotiffread('./data/us_EcoL3_4km.tif');
+load ./data/prism_latlon;
+load ./data/conus_mask;
 
 states = shaperead('usastatehi','UseGeoCoords', true);
 latlim = [25 50];
 lonlim = [-126 -65];
 
-cbrew = [140,81,10
-    191,129,45
-    223,194,125
-    246,232,195
-    199,234,229
-    128,205,193
-    53,151,143
-    1,102,94]/255;
-
-% Topography
-h=figure('Color','w');
-h.Units = 'inches';
-h.Position = [2 4 7.3 4];
-for i=1:4
-    
-    r = NaN(size(EcoL2));
-    p = NaN(size(EcoL2));
-    
-    % Add L1 stats
-    n = size(L1_corrs, 1);
-    for j=1:n
-        el = L1_stats(j, 1);
-        rel = L1_corrs(j, i, 1);
-        pel = L1_corrs(j, i, 2);
-        
-        if ~isnan(rel)
-            r(EcoL1==el) = rel;
-            p(EcoL1==el) = pel;
-        end
-    end
-    
-    % Add L2 stats
-    n = size(L2_corrs, 1);
-    for j=1:n
-        el = L2_stats(j, 1);
-        rel = L2_corrs(j, i, 1);
-        pel = L2_corrs(j, i, 2);
-        
-        if ~isnan(rel)
-            r(EcoL2==el) = rel;
-            p(EcoL2==el) = pel;
-        end
-    end
-    
-    % Add L3 stats
-    n = size(L3_corrs, 1);
-    for j=1:n
-        el = L3_stats(j, 1);
-        rel = L3_corrs(j, i, 1);
-        pel = L3_corrs(j, i, 2);
-        
-        if ~isnan(rel)
-            r(EcoL3==el) = rel;
-            p(EcoL3==el) = pel;
-        end
-    end
-    
-    %p2 = double(p<0.05).*CONUS;
-    %p2(p2==0) = NaN;
-    r(p>0.05) = NaN;
-    
-    subplot(2,2,i)
-    % map...
-    if i~=3
-        ax = axesm('lambert','MapLatLimit',latlim,'MapLonLimit',lonlim,'grid',...
-            'on','PLineLocation',10,'MLineLocation',20,'MeridianLabel','off',...
-            'ParallelLabel','off','GLineWidth',0.3,'Frame','off','FFaceColor',...
-            'none', 'FontName', 'Times New Roman',...
-            'FLineWidth',1, 'FontSize',7, 'MLabelParallel',25.01,...
-            'GColor',[0.8 0.8 0.8], 'FontColor',[0.4 0.4 0.4]);
-    else
-        ax = axesm('lambert','MapLatLimit',latlim,'MapLonLimit',lonlim,'grid',...
-            'on','PLineLocation',10,'MLineLocation',20,'MeridianLabel','on',...
-            'ParallelLabel','on','GLineWidth',0.3,'Frame','off','FFaceColor',...
-            'none', 'FontName', 'Times New Roman',...
-            'FLineWidth',1, 'FontSize',7, 'MLabelParallel',25.01,...
-            'GColor',[0.8 0.8 0.8], 'FontColor',[0.4 0.4 0.4]);
-    end
-    surfm(PRISMlat, PRISMlon, r.*CONUS);
-    caxis([-0.8 0.8]);
-    colormap(cbrew);
-    geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.6 0.6 0.6])
-    %contourm(PRISMlat, PRISMlon, p2, 'LineColor','k');
-%     plotm(LAT, LON, 'k^', 'MarkerSize',4, 'MarkerFaceColor','w')
-%     plotm(tr_lat, tr_lon, 'k^', 'MarkerSize',4, 'MarkerFaceColor','k')
-    axis off;
-    axis image;
-    title(TopoLabs{i}, 'FontName','Times New Roman');
-end
-h = colorbar('southoutside');
-h.Position = [0.417 0.46 0.2 0.05];
-h.FontName = 'Times New Roman';
-h.Ticks = -0.8:0.4:0.8;
-h.Label.String = 'Spearman''s \rho';
-
-set(gcf,'PaperPositionMode','auto')
-print('-dtiff','-f1','-r600','RF_v4_TSC_TopoCorrs.tif')
-close all;
-
-
-
-% Soil
-h=figure('Color','w');
-h.Units = 'inches';
-h.Position = [2 4 7.3 6];
-for i=1:6
-    
-    r = NaN(size(EcoL2));
-    p = NaN(size(EcoL2));
-    
-    % Add L1 stats
-    for j=1:length(L1list)
-        el = L1list(j);
-        rel = L1_corrs(j, i+nTopo, 1);
-        pel = L1_corrs(j, i+nTopo, 2);
-        
-        if ~isnan(rel)
-            r(EcoL1==el) = rel;
-            p(EcoL1==el) = pel;
-        end
-    end
-    
-    % Add L2 stats
-    for j=1:length(L2list)
-        el = L2list(j);
-        rel = L2_corrs(j, i+nTopo, 1);
-        pel = L2_corrs(j, i+nTopo, 2);
-        
-        if ~isnan(rel)
-            r(EcoL2==el) = rel;
-            p(EcoL2==el) = pel;
-        end
-    end
-    
-    % Add L3 stats
-    for j=1:length(L3list)
-        el = L3list(j);
-        rel = L3_corrs(j, i+nTopo, 1);
-        pel = L3_corrs(j, i+nTopo, 2);
-        
-        if ~isnan(rel)
-            r(EcoL3==el) = rel;
-            p(EcoL3==el) = pel;
-        end
-    end
-    
-    %p2 = double(p<0.05).*CONUS;
-    %p2(p2==0) = NaN;
-    r(p>0.05) = NaN;
-    
-    subplot(3,2,i)
-    % map...
-    if i~=5
-        ax = axesm('lambert','MapLatLimit',latlim,'MapLonLimit',lonlim,'grid',...
-            'on','PLineLocation',10,'MLineLocation',20,'MeridianLabel','off',...
-            'ParallelLabel','off','GLineWidth',0.3,'Frame','off','FFaceColor',...
-            'none', 'FontName', 'Times New Roman',...
-            'FLineWidth',1, 'FontSize',7, 'MLabelParallel',25.01,...
-            'GColor',[0.8 0.8 0.8], 'FontColor',[0.4 0.4 0.4]);
-    else
-        ax = axesm('lambert','MapLatLimit',latlim,'MapLonLimit',lonlim,'grid',...
-            'on','PLineLocation',10,'MLineLocation',20,'MeridianLabel','on',...
-            'ParallelLabel','on','GLineWidth',0.3,'Frame','off','FFaceColor',...
-            'none', 'FontName', 'Times New Roman',...
-            'FLineWidth',1, 'FontSize',7, 'MLabelParallel',25.01,...
-            'GColor',[0.8 0.8 0.8], 'FontColor',[0.4 0.4 0.4]);
-    end
-    surfm(PRISMlat, PRISMlon, r.*CONUS);
-    caxis([-0.8 0.8]);
-    colormap(cbrew);
-    geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.6 0.6 0.6])
-    %contourm(PRISMlat, PRISMlon, p2, 'LineColor','k');
-%     plotm(LAT, LON, 'k^', 'MarkerSize',4, 'MarkerFaceColor','w')
-%     plotm(tr_lat, tr_lon, 'k^', 'MarkerSize',4, 'MarkerFaceColor','k')
-    axis off;
-    axis image;
-    title(SoilLabs{i}, 'FontName','Times New Roman');
-end
-h = colorbar('southoutside');
-h.Position = [0.417 0.33 0.2 0.05];
-h.FontName = 'Times New Roman';
-h.Ticks = -0.8:0.4:0.8;
-h.Label.String = 'Spearman''s \rho';
-
-set(gcf,'PaperPositionMode','auto')
-print('-dtiff','-f1','-r600','RF_v4_TSC_SoilCorrs.tif')
-close all;
-
-
-
+clr = wesanderson('fantasticfox1');
+grn = make_cmap([1 1 1; clr(3,:); clr(3,:)*0.5], 5);
+prpl = make_cmap([1 1 1; clr(4,:)], 5);
+cbrew = flipud([flipud(grn(2:end, :)); prpl(2:5, :)]);
 
 % Temperature
-ClimLabs = [TempLabs WaterLabs];
 h=figure('Color','w');
 h.Units = 'inches';
-h.Position = [2 3 5 6.33];
+h.Position = [1 1 5 6.33];
 pos = [1:2:7 2:2:8];
 for i=1:8
     
@@ -292,54 +98,66 @@ for i=1:8
         end
     end
     
-    %p2 = double(p<0.05).*CONUS;
-    %p2(p2==0) = NaN;
     r(p>0.05) = NaN;
     
     subplot(4,2,pos(i))
-    % map...
-    if i~=1
+    if i~=5
         ax = axesm('lambert','MapLatLimit',latlim,'MapLonLimit',lonlim,'grid',...
             'on','PLineLocation',10,'MLineLocation',20,'MeridianLabel','off',...
             'ParallelLabel','off','GLineWidth',0.3,'Frame','off','FFaceColor',...
-            'none', 'FontName', 'Times New Roman',...
+            'none', 'FontName', 'Helvetica',...
             'FLineWidth',1, 'FontSize',7, 'MLabelParallel',25.01,...
             'GColor',[0.8 0.8 0.8], 'FontColor',[0.4 0.4 0.4]);
     else
         ax = axesm('lambert','MapLatLimit',latlim,'MapLonLimit',lonlim,'grid',...
             'on','PLineLocation',10,'MLineLocation',20,'MeridianLabel','on',...
             'ParallelLabel','on','GLineWidth',0.3,'Frame','off','FFaceColor',...
-            'none', 'FontName', 'Times New Roman',...
+            'none', 'FontName', 'Helvetica',...
             'FLineWidth',1, 'FontSize',7, 'MLabelParallel',25.01,...
-            'GColor',[0.8 0.8 0.8], 'FontColor',[0.4 0.4 0.4]);
+            'GColor',[0.8 0.8 0.8], 'FontColor',[0.4 0.4 0.4], 'PLabelMeridian','east');
     end
     surfm(PRISMlat, PRISMlon, r.*CONUS);
     caxis([-0.8 0.8]);
     colormap(cbrew);
     geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.6 0.6 0.6])
-    %contourm(PRISMlat, PRISMlon, p2, 'LineColor','k');
-%     plotm(LAT, LON, 'k^', 'MarkerSize',4, 'MarkerFaceColor','w')
-%     plotm(tr_lat, tr_lon, 'k^', 'MarkerSize',4, 'MarkerFaceColor','k')
     axis off;
     axis image;
-    title(TempLabs{i}, 'FontName','Times New Roman');
+    if i ==1
+        ttl = title('TMIN', 'FontName','Helvetica', 'FontSize',12);
+        ttl.Position(2) = ttl.Position(2)+0.05;
+    elseif i ==5
+        ttl = title('TMAX', 'FontName','Helvetica', 'FontSize',12);
+        ttl.Position(2) = ttl.Position(2)+0.05;
+    end
+    subplotsqueeze(gca, 1.2)
+    if i==1
+        text(-0.5,0.65,'SON','FontSize',12, 'Rotation',90, 'FontWeight','bold');
+    elseif i==2
+        text(-0.5,0.65,'DJF','FontSize',12, 'Rotation',90, 'FontWeight','bold');
+    elseif i==3
+        text(-0.5,0.65,'MAM','FontSize',12, 'Rotation',90, 'FontWeight','bold');
+    elseif i==4
+        text(-0.5,0.65,'JJA','FontSize',12, 'Rotation',90, 'FontWeight','bold');
+    end
+    text(-0.38,0.85,alphabet(pos(i)),'FontSize',12, 'FontWeight','bold');
+        
 end
 h = colorbar('southoutside');
-h.Position = [0.417 0.07 0.2 0.02];
-h.FontName = 'Times New Roman';
-h.Ticks = -0.8:0.4:0.8;
+h.Position = [0.15 0.06 0.7 0.02];
+h.FontName = 'Helvetica';
+h.Ticks = -0.8:0.2:0.8;
+h.TickLength = 0.038;
 h.Label.String = 'Spearman''s \rho';
 
 set(gcf,'PaperPositionMode','auto')
-print('-dtiff','-f1','-r600','RF_v4_TSC_TempCorrs.tif')
+print('-dtiff','-f1','-r300','./output/correlations-temperature.tif')
 close all;
 
 
 % Water
-ClimLabs = [TempLabs WaterLabs];
 h=figure('Color','w');
 h.Units = 'inches';
-h.Position = [2 3 5 6.33];
+h.Position = [1 1 5 6.33];
 pos = [1:2:7 2:2:8];
 for i=1:8
     
@@ -382,46 +200,59 @@ for i=1:8
         end
     end
     
-    %p2 = double(p<0.05).*CONUS;
-    %p2(p2==0) = NaN;
     r(p>0.05) = NaN;
     
     subplot(4,2,pos(i))
-    % map...
-    if i~=1
+    if i~=5
         ax = axesm('lambert','MapLatLimit',latlim,'MapLonLimit',lonlim,'grid',...
             'on','PLineLocation',10,'MLineLocation',20,'MeridianLabel','off',...
             'ParallelLabel','off','GLineWidth',0.3,'Frame','off','FFaceColor',...
-            'none', 'FontName', 'Times New Roman',...
+            'none', 'FontName', 'Helvetica',...
             'FLineWidth',1, 'FontSize',7, 'MLabelParallel',25.01,...
             'GColor',[0.8 0.8 0.8], 'FontColor',[0.4 0.4 0.4]);
     else
         ax = axesm('lambert','MapLatLimit',latlim,'MapLonLimit',lonlim,'grid',...
             'on','PLineLocation',10,'MLineLocation',20,'MeridianLabel','on',...
             'ParallelLabel','on','GLineWidth',0.3,'Frame','off','FFaceColor',...
-            'none', 'FontName', 'Times New Roman',...
+            'none', 'FontName', 'Helvetica',...
             'FLineWidth',1, 'FontSize',7, 'MLabelParallel',25.01,...
-            'GColor',[0.8 0.8 0.8], 'FontColor',[0.4 0.4 0.4]);
+            'GColor',[0.8 0.8 0.8], 'FontColor',[0.4 0.4 0.4], 'PLabelMeridian','east');
     end
     surfm(PRISMlat, PRISMlon, r.*CONUS);
     caxis([-0.8 0.8]);
     colormap(cbrew);
     geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.6 0.6 0.6])
-    %contourm(PRISMlat, PRISMlon, p2, 'LineColor','k');
-%     plotm(LAT, LON, 'k^', 'MarkerSize',4, 'MarkerFaceColor','w')
-%     plotm(tr_lat, tr_lon, 'k^', 'MarkerSize',4, 'MarkerFaceColor','k')
     axis off;
     axis image;
-    title(WaterLabs{i}, 'FontName','Times New Roman');
+    if i ==1
+        ttl = title('CWB', 'FontName','Helvetica', 'FontSize',12);
+        ttl.Position(2) = ttl.Position(2)+0.05;
+    elseif i ==5
+        ttl = title('VPD', 'FontName','Helvetica', 'FontSize',12);
+        ttl.Position(2) = ttl.Position(2)+0.05;
+    end
+    subplotsqueeze(gca, 1.2)
+    if i==1
+        text(-0.5,0.65,'SON','FontSize',12, 'Rotation',90, 'FontWeight','bold');
+    elseif i==2
+        text(-0.5,0.65,'DJF','FontSize',12, 'Rotation',90, 'FontWeight','bold');
+    elseif i==3
+        text(-0.5,0.65,'MAM','FontSize',12, 'Rotation',90, 'FontWeight','bold');
+    elseif i==4
+        text(-0.5,0.65,'JJA','FontSize',12, 'Rotation',90, 'FontWeight','bold');
+    end
+    text(-0.38,0.85,alphabet(pos(i)),'FontSize',12, 'FontWeight','bold');
+        
 end
 h = colorbar('southoutside');
-h.Position = [0.417 0.07 0.2 0.02];
-h.FontName = 'Times New Roman';
-h.Ticks = -0.8:0.4:0.8;
+h.Position = [0.15 0.06 0.7 0.02];
+h.FontName = 'Helvetica';
+h.Ticks = -0.8:0.2:0.8;
+h.TickLength = 0.038;
 h.Label.String = 'Spearman''s \rho';
 
 set(gcf,'PaperPositionMode','auto')
-print('-dtiff','-f1','-r600','RF_v4_TSC_WaterCorrs.tif')
+print('-dtiff','-f1','-r300','./output/correlations-water.tif')
 close all;
 
 
@@ -482,13 +313,13 @@ close all;
 %         ax = axesm('lambert','MapLatLimit',latlim,'MapLonLimit',lonlim,'grid',...
 %             'on','PLineLocation',5,'MLineLocation',10,'MeridianLabel','off',...
 %             'ParallelLabel','off','GLineWidth',0.5,'Frame','off','FFaceColor',...
-%             'none', 'FontName', 'Times New Roman',...
+%             'none', 'FontName', 'Helvetica',...
 %             'FLineWidth',1);
 %     else
 %         ax = axesm('lambert','MapLatLimit',latlim,'MapLonLimit',lonlim,'grid',...
 %             'on','PLineLocation',5,'MLineLocation',10,'MeridianLabel','on',...
 %             'ParallelLabel','on','GLineWidth',0.5,'Frame','off','FFaceColor',...
-%             'none', 'FontName', 'Times New Roman',...
+%             'none', 'FontName', 'Helvetica',...
 %             'FLineWidth',1);
 %     end
 %     surfm(PRISMlat, PRISMlon, r.*CONUS);
@@ -500,11 +331,11 @@ close all;
 % %     plotm(tr_lat, tr_lon, 'k^', 'MarkerSize',4, 'MarkerFaceColor','k')
 %     axis off;
 %     axis image;
-%     title(ClimLabs{i}, 'FontName','Times New Roman');
+%     title(ClimLabs{i}, 'FontName','Helvetica');
 % end
 % h = colorbar('southoutside');
 % h.Position = [0.417 0.33 0.2 0.05];
-% h.FontName = 'Times New Roman';
+% h.FontName = 'Helvetica';
 % h.Ticks = -0.8:0.4:0.8;
 % h.Label.String = 'Spearman''s \rho';
 % 
