@@ -102,7 +102,7 @@ ylb = ylabel(cb, '\DeltaError');
 cb.FontSize = 9;
 cb.Ticks = 0:0.125:1;
 cb.TickLabels = {'0','','0.25','','0.5','','0.75','','1'};
-cb.TickLength = 0.17;
+cb.TickLength = 0.16;
 ylb.Position(1) = 2.4;
 
 set(gcf,'PaperPositionMode','auto')
@@ -152,7 +152,7 @@ ylb = ylabel(cb, '\DeltaError');
 cb.FontSize = 9;
 cb.Ticks = 0:0.125:1;
 cb.TickLabels = {'0','','0.25','','0.5','','0.75','','1'};
-cb.TickLength = 0.1;
+cb.TickLength = 0.097;
 ylb.Position(1) = 2.1;
 
 set(gcf,'PaperPositionMode','auto')
@@ -202,7 +202,7 @@ ylb = ylabel(cb, '\DeltaError');
 cb.FontSize = 9;
 cb.Ticks = 0:0.125:1;
 cb.TickLabels = {'0','','0.25','','0.5','','0.75','','1'};
-cb.TickLength = 0.045;
+cb.TickLength = 0.043;
 
 set(gcf,'PaperPositionMode','auto')
 print('-dtiff','-f1','-r300','./output/rf-variable-importance-L3.tif')

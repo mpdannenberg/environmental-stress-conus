@@ -101,7 +101,7 @@ ylb = ylabel(cb, '\DeltaError');
 cb.FontSize = 9;
 cb.Ticks = 0:0.25:2;
 cb.TickLabels = {'0','','0.5','','1','','1.5','','2'};
-cb.TickLength = 0.17;
+cb.TickLength = 0.16;
 ylb.Position(1) = 2.2;
 
 set(gcf,'PaperPositionMode','auto')
@@ -148,7 +148,7 @@ ylb = ylabel(cb, '\DeltaError');
 cb.FontSize = 9;
 cb.Ticks = 0:0.25:2;
 cb.TickLabels = {'0','','0.5','','1','','1.5','','2'};
-cb.TickLength = 0.09;
+cb.TickLength = 0.087;
 ylb.Position(1) = 2.1;
 
 set(gcf,'PaperPositionMode','auto')
@@ -195,7 +195,7 @@ ylb = ylabel(cb, '\DeltaError');
 cb.FontSize = 9;
 cb.Ticks = 0:0.25:2;
 cb.TickLabels = {'0','','0.5','','1','','1.5','','2'};
-cb.TickLength = 0.045;
+cb.TickLength = 0.043;
 
 set(gcf,'PaperPositionMode','auto')
 print('-dtiff','-f1','-r300','./output/supplemental-rsi-rf-variable-importance-L3.tif')
