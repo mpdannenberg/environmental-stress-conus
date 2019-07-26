@@ -29,15 +29,16 @@ ecolabs = {'Northern Forests','Northwestern Forested Mountains',...
     'Southern Semi-Arid Highlands','Temperate Sierras'};
 ecolabs2 = {'5.0','6.0','7.0','8.0','9.0','10.0','11.0','12.0','13.0'};
 
-cbrew = [251,180,174
-    179,205,227
-    204,235,197
-    222,203,228
-    254,217,166
-    255,255,204
-    229,216,189
-    253,218,236
-    232,232,232]/255;
+clr = wesanderson('fantasticfox1');
+cbrew = [clr(4,:)
+    sqrt(clr(4,:))
+    clr(3,:).^2
+    clr(3,:)
+    clr(1,:).^2
+    clr(1,:)
+    clr(2,:)
+    sqrt(clr(2,:))
+    clr(5,:)];
 
 tlat = [TREESI.LAT];
 tlon = [TREESI.LON];
