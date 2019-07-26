@@ -1,50 +1,24 @@
-%%
-%% Map model strength for TSC and C models for both SIa and SIr
-%%
+% Make maps comparing TSC model skill to C model skill
 
-
-cd EcoRegions;
-[EcoL1, R] = geotiffread('us_EcoL1_4km.tif');
-[EcoL2] = geotiffread('us_EcoL2_4km.tif');
-[EcoL3] = geotiffread('us_EcoL3_4km.tif');
-cd ../PRISM;
-load prism_latlon;
-cd ..;
-load conus_mask;
+[EcoL1, R] = geotiffread('./data/us_EcoL1_4km.tif');
+[EcoL2] = geotiffread('./data/us_EcoL2_4km.tif');
+[EcoL3] = geotiffread('./data/us_EcoL3_4km.tif');
+load ./data/prism_latlon;
+load ./data/conus_mask;
 
 states = shaperead('usastatehi','UseGeoCoords', true);
 latlim = [25 50];
 lonlim = [-126 -65];
 
-
-% Order of *_stats columns: ecoregion, rmse, r2, Spearman's rho, n, nsites
-
-% cbrew = [247,252,240
-% 224,243,219
-% 204,235,197
-% 168,221,181
-% 123,204,196
-% 78,179,211
-% 43,140,190
-% 8,88,158]/255;
-
-cbrew = [255,247,251
-236,231,242
-208,209,230
-166,189,219
-116,169,207
-54,144,192
-5,112,176
-3,78,123]/255;
+clr = wesanderson('fantasticfox1');
+cbrew = make_cmap([1 1 1; clr(4,:)], 8);
 
 h=figure('Color','w');
 h.Units = 'inches';
-h.Position = [2 4 6.65 4];
+h.Position = [1 1 6.5 4];
 
 %% Absolute Stress Index (TSC)
-cd RF_v4_TSC;
-load RF_v4_TSC_stats;
-cd ..;
+load ./data/RF_v4_TSC_stats;
 
 r = NaN(size(EcoL2));
 
@@ -94,16 +68,13 @@ colormap(cbrew);
 geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.4 0.4 0.4])
 axis off;
 axis image;
-% title('SI_{a,TSC}', 'FontName','Times New Roman');
-text(-0.42, 0.85, '(a)', 'FontName','Times New Roman', 'FontSize',12, 'FontWeight','bold');
+text(-0.42, 0.85, 'A', 'FontName','Times New Roman', 'FontSize',12, 'FontWeight','bold');
 text(-0.05, 0.96, 'TSC model', 'FontName','Times New Roman', 'FontSize',14,...
     'FontWeight','bold','HorizontalAlignment','center');
-ax.Position = [0.05 0.55 0.4 0.36];
+ax.Position = [0.05 0.56 0.4 0.36];
 
 %% Absolute Stress Index (C)
-cd RF_v4_C;
-load RF_v4_C_stats;
-cd ..;
+load ./data/RF_v4_C_stats;
 
 r = NaN(size(EcoL2));
 
@@ -153,17 +124,14 @@ colormap(cbrew);
 geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.4 0.4 0.4])
 axis off;
 axis image;
-% title('SI_{a,C}', 'FontName','Times New Roman');
-text(-0.42, 0.85, '(b)', 'FontName','Times New Roman', 'FontSize',12, 'FontWeight','bold');
+text(-0.42, 0.85, 'B', 'FontName','Times New Roman', 'FontSize',12, 'FontWeight','bold');
 text(-0.05, 0.96, 'C model', 'FontName','Times New Roman', 'FontSize',14,...
     'FontWeight','bold','HorizontalAlignment','center');
-ax.Position = [0.5703 0.55 0.4 0.36];
+ax.Position = [0.5703 0.56 0.4 0.36];
 
 
 %% Relative Stress Index (TSC)
-cd RF_v6_RSI_TSC;
-load RF_v6_RSI_TSC_stats;
-cd ..;
+load ./data/RF_v6_RSI_TSC_stats;
 
 r = NaN(size(EcoL2));
 
@@ -213,15 +181,12 @@ colormap(cbrew);
 geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.4 0.4 0.4])
 axis off;
 axis image;
-% title('SI_{r,TSC}', 'FontName','Times New Roman');
-text(-0.42, 0.85, '(c)', 'FontName','Times New Roman', 'FontSize',12, 'FontWeight','bold');
-ax.Position = [0.05 0.05 0.4 0.36];
+text(-0.42, 0.85, 'C', 'FontName','Times New Roman', 'FontSize',12, 'FontWeight','bold');
+ax.Position = [0.05 0.18 0.4 0.36];
 
 
 %% Relative Stress Index (C)
-cd RF_v6_RSI_C;
-load RF_v6_RSI_C_stats;
-cd ..;
+load ./data/RF_v6_RSI_C_stats;
 
 r = NaN(size(EcoL2));
 
@@ -271,18 +236,19 @@ colormap(cbrew);
 geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.4 0.4 0.4])
 axis off;
 axis image;
-% title('SI_{r,C}', 'FontName','Times New Roman');
-text(-0.42, 0.85, '(d)', 'FontName','Times New Roman', 'FontSize',12, 'FontWeight','bold');
-ax.Position = [0.5703 0.05 0.4 0.36];
+text(-0.42, 0.85, 'D', 'FontName','Times New Roman', 'FontSize',12, 'FontWeight','bold');
+ax.Position = [0.5703 0.18 0.4 0.36];
 
 h = colorbar('southoutside');
-h.Position = [0.44 0.12 0.15 0.03];
+h.Position = [0.11 0.12 0.8 0.03];
 h.FontName = 'Times New Roman';
 h.FontSize = 10;
-h.Ticks = 0:0.25:1;
-h.Label.String = 'r^{2}';
+h.Ticks = 0:0.125:1;
+h.TickLabels = {'0','','0.25','','0.5','','0.75','','1'};
+h.TickLength = 0.025;
+h.Label.String = 'R^{2}';
 
 set(gcf,'PaperPositionMode','auto')
-print('-dtiff','-f1','-r600','RF_TSCvsC_ModelStrength.tif')
+print('-dtiff','-f1','-r300','./output/rf-model-skill-maps.tif')
 close all;
 
