@@ -35,7 +35,6 @@ L2list = L2list(L2list >0);
 L3list = sort(unique(EcoL3));
 L3list = L3list(L3list >0);
 
-
 load ./data/RF_v4_TSC_stats;
 [EcoL1, R] = geotiffread('./data/us_EcoL1_4km.tif');
 [EcoL2] = geotiffread('./data/us_EcoL2_4km.tif');
