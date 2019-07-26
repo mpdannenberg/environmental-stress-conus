@@ -47,8 +47,8 @@ latlim = [25 50];
 lonlim = [-126 -65];
 
 clr = wesanderson('fantasticfox1');
-grn = make_cmap([1 1 1; clr(3,:); clr(3,:)*0.5], 5);
-prpl = make_cmap([1 1 1; clr(4,:)], 5);
+grn = make_cmap([1 1 1; clr(3,:); clr(3,:).^3], 5);
+prpl = make_cmap([1 1 1; sqrt(clr(4,:)); clr(4,:)], 5);
 cbrew = flipud([flipud(grn(2:end, :)); prpl(2:5, :)]);
 
 % Temperature

@@ -3,7 +3,7 @@
 n_min = 75;
 syear = 1971;
 clr = wesanderson('fantasticfox1');
-clr2 = make_cmap([1 1 1; clr(4,:)], 8);
+clr2 = make_cmap([1 1 1; sqrt(clr(4,:)); clr(4,:)], 8);
 
 % Number of vars for each environmental stress type
 nTopo = 4;

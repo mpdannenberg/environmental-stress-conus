@@ -21,6 +21,9 @@ AllLabs = [TopoLabs SoilLabs TempLabs WaterLabs];
 
 p = length(AllLabs);
 
+clr = wesanderson('fantasticfox1');
+clr2 = make_cmap([1 1 1; sqrt(clr(4,:)); clr(4,:)], 9);
+
 %% Load/process datasets
 load ./data/TREESI_wEnvFactors;
 
@@ -70,10 +73,6 @@ end
 wgtMean = sum(VarImp .* repmat(L1n/sum(L1n), length(AllLabs), 1), 2);
 VarImp(:, end+1) = wgtMean;
 
-% Show variable importance
-clr = wesanderson('fantasticfox1');
-clr2 = make_cmap([1 1 1; clr(4,:)], 9);
-
 h = figure('Color','w');
 h.Units = 'inches';
 h.Position = [1 1 6.5 2];
@@ -120,10 +119,6 @@ end
 wgtMean = sum(VarImp .* repmat(L2n/sum(L2n), length(AllLabs), 1), 2);
 VarImp(:, end+1) = wgtMean;
 
-% Show variable importance
-clr = wesanderson('fantasticfox1');
-clr2 = make_cmap([1 1 1; clr(4,:)], 9);
-
 h = figure('Color','w');
 h.Units = 'inches';
 h.Position = [1 1 6.5 3];
@@ -169,10 +164,6 @@ for i = 1:length(L3list)
 end
 wgtMean = sum(VarImp .* repmat(L3n/sum(L3n), length(AllLabs), 1), 2);
 VarImp(:, end+1) = wgtMean;
-
-% Show variable importance
-clr = wesanderson('fantasticfox1');
-clr2 = make_cmap([1 1 1; clr(4,:)], 9);
 
 h = figure('Color','w');
 h.Units = 'inches';

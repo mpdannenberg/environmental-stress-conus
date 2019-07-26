@@ -11,7 +11,7 @@ latlim = [25 50];
 lonlim = [-126 -65];
 
 clr = wesanderson('fantasticfox1');
-cbrew = make_cmap([1 1 1; clr(4,:)], 8);
+cbrew = make_cmap([1 1 1; sqrt(clr(4,:)); clr(4,:)], 8);
 
 h=figure('Color','w');
 h.Units = 'inches';
