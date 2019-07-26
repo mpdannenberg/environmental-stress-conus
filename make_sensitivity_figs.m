@@ -290,18 +290,18 @@ h.Position = [1 1 6.5 5];
 ax = tight_subplot(4,2,[0.05 0.1],[0.1 0.05], [0.1 0.05]);
 
 axes(ax(1))
-fill([PIPO.Dopt.bins fliplr(PIPO.Dopt.bins)], [PIPO.Dopt.lci fliplr(PIPO.Dopt.uci)], clr(1,:), 'FaceAlpha',0.8, 'EdgeColor','none')
+fill([PIPO.Dopt.bins fliplr(PIPO.Dopt.bins)], [PIPO.Dopt.lci fliplr(PIPO.Dopt.uci)], clr(1,:), 'FaceAlpha',0.5, 'EdgeColor','none')
 set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.025 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
-plot(PIPO.Dopt.bins, PIPO.Dopt.y, '-','LineWidth',2, 'Color',clr(1,:)*0.7);
+plot(PIPO.Dopt.bins, PIPO.Dopt.y, '-','LineWidth',2, 'Color',clr(1,:).^2);
 text(2, 0.19, 'A) ', 'FontSize',12);
-text(10, 0.19, '\itP. ponderosa', 'FontSize',12, 'Color',clr(1,:)*0.7);
+text(10, 0.19, '\itP. ponderosa', 'FontSize',12, 'Color',clr(1,:).^2);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 
 axes(ax(3))
-fill([PSME.Dopt.bins fliplr(PSME.Dopt.bins)], [PSME.Dopt.lci fliplr(PSME.Dopt.uci)], clr(2,:), 'FaceAlpha',0.4, 'EdgeColor','none')
+fill([PSME.Dopt.bins fliplr(PSME.Dopt.bins)], [PSME.Dopt.lci fliplr(PSME.Dopt.uci)], clr(2,:), 'FaceAlpha',0.5, 'EdgeColor','none')
 set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.025 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
@@ -312,18 +312,18 @@ ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 
 axes(ax(5))
-fill([ACRU.Dopt.bins fliplr(ACRU.Dopt.bins)], [ACRU.Dopt.lci fliplr(ACRU.Dopt.uci)], clr(3,:), 'FaceAlpha',1, 'EdgeColor','none')
+fill([ACRU.Dopt.bins fliplr(ACRU.Dopt.bins)], [ACRU.Dopt.lci fliplr(ACRU.Dopt.uci)], clr(3,:), 'FaceAlpha',0.5, 'EdgeColor','none')
 set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.025 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
-plot(ACRU.Dopt.bins, ACRU.Dopt.y, '-','LineWidth',2, 'Color',clr(3,:)*0.7);
+plot(ACRU.Dopt.bins, ACRU.Dopt.y, '-','LineWidth',2, 'Color',clr(3,:).^2);
 text(2, 0.19, 'E) ', 'FontSize',12);
-text(10, 0.19, '\itA. rubrum', 'FontSize',12, 'Color',clr(3,:)*0.7);
+text(10, 0.19, '\itA. rubrum', 'FontSize',12, 'Color',clr(3,:).^2);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 
 axes(ax(7))
-fill([QUSP.Dopt.bins fliplr(QUSP.Dopt.bins)], [QUSP.Dopt.lci fliplr(QUSP.Dopt.uci)], clr(4,:), 'FaceAlpha',0.4, 'EdgeColor','none')
+fill([QUSP.Dopt.bins fliplr(QUSP.Dopt.bins)], [QUSP.Dopt.lci fliplr(QUSP.Dopt.uci)], clr(4,:), 'FaceAlpha',0.5, 'EdgeColor','none')
 set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'TickDir','out', 'TickLength',[0.025 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
@@ -337,18 +337,18 @@ xlabel('D^{*} (cm)');
 
 %% S bias
 axes(ax(2))
-fill([PIPO.S.bins fliplr(PIPO.S.bins)], [PIPO.S.lci fliplr(PIPO.S.uci)], clr(1,:), 'FaceAlpha',0.8, 'EdgeColor','none')
+fill([PIPO.S.bins fliplr(PIPO.S.bins)], [PIPO.S.lci fliplr(PIPO.S.uci)], clr(1,:), 'FaceAlpha',0.5, 'EdgeColor','none')
 set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.025 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
-plot(PIPO.S.bins, PIPO.S.y, '-','LineWidth',2, 'Color',clr(1,:)*0.7);
+plot(PIPO.S.bins, PIPO.S.y, '-','LineWidth',2, 'Color',clr(1,:).^2);
 text(2+offs, 0.96, 'B) ', 'FontSize',12);
-text(10+offs, 0.96, '\itP. ponderosa', 'FontSize',12, 'Color',clr(1,:)*0.7);
+text(10+offs, 0.96, '\itP. ponderosa', 'FontSize',12, 'Color',clr(1,:).^2);
 ylabel('S^{*} bias');
 box off;
 
 axes(ax(4))
-fill([PSME.S.bins fliplr(PSME.S.bins)], [PSME.S.lci fliplr(PSME.S.uci)], clr(2,:), 'FaceAlpha',0.4, 'EdgeColor','none')
+fill([PSME.S.bins fliplr(PSME.S.bins)], [PSME.S.lci fliplr(PSME.S.uci)], clr(2,:), 'FaceAlpha',0.5, 'EdgeColor','none')
 set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.025 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
@@ -359,18 +359,18 @@ ylabel('S^{*} bias');
 box off;
 
 axes(ax(6))
-fill([ACRU.S.bins(2:end) fliplr(ACRU.S.bins(2:end))], [ACRU.S.lci(2:end) fliplr(ACRU.S.uci(2:end))], clr(3,:), 'FaceAlpha',1, 'EdgeColor','none')
+fill([ACRU.S.bins(2:end) fliplr(ACRU.S.bins(2:end))], [ACRU.S.lci(2:end) fliplr(ACRU.S.uci(2:end))], clr(3,:), 'FaceAlpha',0.5, 'EdgeColor','none')
 set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.025 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
-plot(ACRU.S.bins, ACRU.S.y, '-','LineWidth',2, 'Color',clr(3,:)*0.7);
+plot(ACRU.S.bins, ACRU.S.y, '-','LineWidth',2, 'Color',clr(3,:).^2);
 text(2+offs, 0.96, 'F) ', 'FontSize',12);
-text(10+offs, 0.96, '\itA. rubrum', 'FontSize',12, 'Color',clr(3,:)*0.7);
+text(10+offs, 0.96, '\itA. rubrum', 'FontSize',12, 'Color',clr(3,:).^2);
 ylabel('S^{*} bias');
 box off;
 
 axes(ax(8))
-fill([QUSP.S.bins(2:end) fliplr(QUSP.S.bins(2:end))], [QUSP.S.lci(2:end) fliplr(QUSP.S.uci(2:end))], clr(4,:), 'FaceAlpha',0.4, 'EdgeColor','none')
+fill([QUSP.S.bins(2:end) fliplr(QUSP.S.bins(2:end))], [QUSP.S.lci(2:end) fliplr(QUSP.S.uci(2:end))], clr(4,:), 'FaceAlpha',0.5, 'EdgeColor','none')
 set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'TickDir','out', 'TickLength',[0.025 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
