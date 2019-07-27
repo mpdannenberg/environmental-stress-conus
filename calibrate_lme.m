@@ -60,7 +60,6 @@ for i = 1:length(TREESI)
     T.Species(idx) = TREESI(i).SPECIES;
     
     [~, ind] = intersect(TREESI(i).PRISM.YEAR, yr(ind));
-    % Ugh... gotta do all the calculations here...
     
     % 3-month P-PET sums
     P = reshape((TREESI(i).PRISM.PPT - TREESI(i).PRISM.PET)', 1, []);
@@ -69,10 +68,10 @@ for i = 1:length(TREESI)
     a = 1;
     P = filter(b, a, P);
     P = reshape(P, 12, [])';
-    T.WB_SON(idx) = P(ind-1, 11);
-    T.WB_DJF(idx) = P(ind, 2);
-    T.WB_MAM(idx) = P(ind, 5);
-    T.WB_JJA(idx) = P(ind, 8);
+    T.WB_SON(idx) = P(ind-1, 11)- mean(P(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 11));
+    T.WB_DJF(idx) = P(ind, 2)- mean(P(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 2));
+    T.WB_MAM(idx) = P(ind, 5)- mean(P(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 5));
+    T.WB_JJA(idx) = P(ind, 8)- mean(P(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 8));
     
     % 3-month Tmin, Tmax, and VPD means
     Tmin = reshape(TREESI(i).PRISM.TMIN', 1, []);
@@ -84,18 +83,18 @@ for i = 1:length(TREESI)
     Tmin = reshape(filter(b, a, Tmin), 12, [])';
     Tmax = reshape(filter(b, a, Tmax), 12, [])';
     VPD = reshape(filter(b, a, VPD), 12, [])';
-    T.TMIN_SON(idx) = Tmin(ind-1, 11);
-    T.TMIN_DJF(idx) = Tmin(ind, 2);
-    T.TMIN_MAM(idx) = Tmin(ind, 5);
-    T.TMIN_JJA(idx) = Tmin(ind, 8);
-    T.TMAX_SON(idx) = Tmax(ind-1, 11);
-    T.TMAX_DJF(idx) = Tmax(ind, 2);
-    T.TMAX_MAM(idx) = Tmax(ind, 5);
-    T.TMAX_JJA(idx) = Tmax(ind, 8);
-    T.VPD_SON(idx) = VPD(ind-1, 11);
-    T.VPD_DJF(idx) = VPD(ind, 2);
-    T.VPD_MAM(idx) = VPD(ind, 5);
-    T.VPD_JJA(idx) = VPD(ind, 8);
+    T.TMIN_SON(idx) = Tmin(ind-1, 11)- mean(Tmin(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 11));
+    T.TMIN_DJF(idx) = Tmin(ind, 2)- mean(Tmin(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 2));
+    T.TMIN_MAM(idx) = Tmin(ind, 5)- mean(Tmin(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 5));
+    T.TMIN_JJA(idx) = Tmin(ind, 8)- mean(Tmin(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 8));
+    T.TMAX_SON(idx) = Tmax(ind-1, 11)- mean(Tmax(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 11));
+    T.TMAX_DJF(idx) = Tmax(ind, 2)- mean(Tmax(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 2));
+    T.TMAX_MAM(idx) = Tmax(ind, 5)- mean(Tmax(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 5));
+    T.TMAX_JJA(idx) = Tmax(ind, 8)- mean(Tmax(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 8));
+    T.VPD_SON(idx) = VPD(ind-1, 11)- mean(VPD(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 11));
+    T.VPD_DJF(idx) = VPD(ind, 2)- mean(VPD(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 2));
+    T.VPD_MAM(idx) = VPD(ind, 5)- mean(VPD(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 5));
+    T.VPD_JJA(idx) = VPD(ind, 8)- mean(VPD(TREESI(i).PRISM.YEAR>=1981 & TREESI(i).PRISM.YEAR<=2010, 8));
     
     
 end
@@ -137,5 +136,9 @@ while bic1 < bic0
     bic1 = lme1.ModelCriterion.BIC;
     
 end
+
+%% Get random effects
+[B,Bnames, stats] = randomEffects(lme0_bic);
+
 
 
