@@ -164,7 +164,6 @@ end
 [B,Bnames, stats] = randomEffects(lme0_bic);
 stats = dataset2table(stats);
 lme0_coeffs = dataset2table(lme0_bic.Coefficients);
-spc = Bnames.Level(idx);
 
 h = figure('Color','w');
 h.Units = 'inches';
@@ -200,6 +199,7 @@ bse = lme0_coeffs.SE(3);
 u = stats.Estimate(idx);
 uli = stats.Lower(idx);
 uui = stats.Upper(idx);
+spc = Bnames.Level(idx);
 
 subplot(3,1,2)
 fill([0 34 34 0], [b-bse*1.96 b-bse*1.96 b+bse*1.96 b+bse*1.96], 'k',...
