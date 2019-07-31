@@ -6,9 +6,8 @@ clr = wesanderson('fantasticfox1');
 pipo = csvread('./data/DBH_Comparison_PIPO.csv', 1, 2);
 psme = csvread('./data/DBH_Comparison_PSME.csv', 1, 2);
 acru = csvread('./data/DBH_Comparison_ACRU.csv', 1, 2);
-quco = csvread('./data/DBH_Comparison_QUCO.csv', 1, 2);
-quve = csvread('./data/DBH_Comparison_QUVE.csv', 1, 2);
-qusp = [quco; quve];
+quru = csvread('./data/DBH_Comparison_QURU.csv', 1, 2);
+tsca = csvread('./data/DBH_Comparison_TSCA.csv', 1, 2);
 
 h = figure('Color','w');
 h.Units = 'inches';
@@ -23,26 +22,32 @@ hold on;
 plot([0 150], [0 150], '-', 'Color',[0.6 0.6 0.6]);
 plot(psme(:, 2), psme(:, 1), 'o', 'Color',clr(2, :), 'LineWidth',...
     1.2, 'MarkerSize',5);
+plot(quru(:, 2), quru(:, 1), 'o', 'Color',clr(4, :), 'LineWidth',...
+    1.2, 'MarkerSize',5);
 plot(acru(:, 2), acru(:, 1), 'o', 'Color',clr(3, :), 'LineWidth',...
     1.2, 'MarkerSize',5);
-plot(qusp(:, 2), qusp(:, 1), 'o', 'Color',clr(4, :), 'LineWidth',...
+plot(tsca(:, 2), tsca(:, 1), 'o', 'Color',clr(5, :), 'LineWidth',...
     1.2, 'MarkerSize',5);
-[r, p] = corr(pipo, 'type','Spearman');
-text(5, 142, '\itP. ponderosa', 'FontSize',11, 'Color',clr(1, :))
-text(5, 136, ['n = ', num2str(length(pipo(:, 2)))], 'FontSize',11, 'Color',clr(1, :))
-text(5, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(1, :))
-[r, p] = corr(psme, 'type','Spearman');
-text(5, 118, '\itP. menziesii', 'FontSize',11, 'Color',clr(2, :))
-text(5, 112, ['n = ', num2str(length(psme(:, 2)))], 'FontSize',11, 'Color',clr(2, :))
-text(5, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(2, :))
-[r, p] = corr(acru, 'type','Spearman');
-text(45, 142, '\itA. rubrum', 'FontSize',11, 'Color',clr(3, :))
-text(45, 136, ['n = ', num2str(length(acru(:, 2)))], 'FontSize',11, 'Color',clr(3, :))
-text(45, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(3, :))
-[r, p] = corr(qusp, 'type','Spearman');
-text(45, 118, '\itQuercus sp.', 'FontSize',11, 'Color',clr(4, :))
-text(45, 112, ['n = ', num2str(length(quco(:, 2)))], 'FontSize',11, 'Color',clr(4, :))
-text(45, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(4, :))
+% [r, p] = corr(pipo, 'type','Spearman');
+% text(5, 142, '\itP. ponderosa', 'FontSize',11, 'Color',clr(1, :))
+% text(5, 136, ['n = ', num2str(length(pipo(:, 2)))], 'FontSize',11, 'Color',clr(1, :))
+% text(5, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(1, :))
+% [r, p] = corr(psme, 'type','Spearman');
+% text(5, 118, '\itP. menziesii', 'FontSize',11, 'Color',clr(2, :))
+% text(5, 112, ['n = ', num2str(length(psme(:, 2)))], 'FontSize',11, 'Color',clr(2, :))
+% text(5, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(2, :))
+% [r, p] = corr(acru, 'type','Spearman');
+% text(45, 142, '\itA. rubrum', 'FontSize',11, 'Color',clr(3, :))
+% text(45, 136, ['n = ', num2str(length(acru(:, 2)))], 'FontSize',11, 'Color',clr(3, :))
+% text(45, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(3, :))
+% [r, p] = corr(quru, 'type','Spearman');
+% text(45, 118, '\itQ. rubra', 'FontSize',11, 'Color',clr(4, :))
+% text(45, 112, ['n = ', num2str(length(quru(:, 2)))], 'FontSize',11, 'Color',clr(4, :))
+% text(45, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(4, :))
+% [r, p] = corr(tsca, 'type','Spearman');
+% text(5, 118-24, '\itT. canadensis', 'FontSize',11, 'Color',clr(5, :))
+% text(5, 112-24, ['n = ', num2str(length(tsca(:, 2)))], 'FontSize',11, 'Color',clr(5, :))
+% text(5, 106-24, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(5, :))
 xlabel('Measured DBH (cm)', 'FontSize',12);
 ylabel('Estimated DBH (cm)', 'FontSize',12);
 set(gca, 'Position',[0.1300    0.43    0.7750    0.5154]);
@@ -52,19 +57,21 @@ subplot(3, 1, 3)
 Y1 = histcounts(pipo(:, 1)-pipo(:, 2), -100:5:20);
 Y2 = histcounts(psme(:, 1)-psme(:, 2), -100:5:20);
 Y3 = histcounts(acru(:, 1)-acru(:, 2), -100:5:20);
-Y4 = histcounts(qusp(:, 1)-qusp(:, 2), -100:5:20);
-Y = [Y1' Y2' Y3' Y4'];
+Y4 = histcounts(quru(:, 1)-quru(:, 2), -100:5:20);
+Y5 = histcounts(tsca(:, 1)-tsca(:, 2), -100:5:20);
+Y = [Y1' Y2' Y3' Y4' Y5'];
 b = bar((-100+2.5):5:(20-2.5), Y, 1, 'stacked', 'EdgeColor',[0.4 0.4 0.4]);
 b(1).FaceColor = clr(1, :);
 b(2).FaceColor = clr(2, :);
 b(3).FaceColor = clr(3, :);
 b(4).FaceColor = clr(4, :);
-set(gca, 'YLim',[0 150], 'TickDir','out', 'TickLength',[0.025 0.05], 'FontSize',9);
+b(5).FaceColor = clr(5, :);
+set(gca, 'YLim',[0 320], 'TickDir','out', 'TickLength',[0.025 0.05], 'FontSize',9);
 set(gca, 'Position',[0.1300    0.09    0.7750    0.2157]);
 box off;
 xlabel('DBH bias (cm)', 'FontSize',12);
 ylabel('Count', 'FontSize',12);
-text(-124, 150, 'B', 'FontSize',14, 'FontWeight','bold');
+text(-124, 320, 'B', 'FontSize',14, 'FontWeight','bold');
 
 set(gcf,'PaperPositionMode','auto')
 print('-dtiff','-f1','-r300','./output/dbh-bias.tif')
@@ -92,10 +99,16 @@ fprintf(['Mean bias: ', num2str(mean(acru(:, 1)-acru(:, 2))),'\n']);
 fprintf(['Median bias: ', num2str(median(acru(:, 1)-acru(:, 2))),'\n']);
 fprintf('\n');
 
-% QUSP
-fprintf('QUSP:\n');
-fprintf(['Mean bias: ', num2str(mean(qusp(:, 1)-qusp(:, 2))),'\n']);
-fprintf(['Median bias: ', num2str(median(qusp(:, 1)-qusp(:, 2))),'\n']);
+% QURU
+fprintf('QURU:\n');
+fprintf(['Mean bias: ', num2str(mean(quru(:, 1)-quru(:, 2))),'\n']);
+fprintf(['Median bias: ', num2str(median(quru(:, 1)-quru(:, 2))),'\n']);
+fprintf('\n');
+
+% TSCA
+fprintf('TSCA:\n');
+fprintf(['Mean bias: ', num2str(mean(tsca(:, 1)-tsca(:, 2))),'\n']);
+fprintf(['Median bias: ', num2str(median(tsca(:, 1)-tsca(:, 2))),'\n']);
 fprintf('\n');
 
 
@@ -107,9 +120,8 @@ quants = [0.025 0.975];
 pipo = csvread('./data/Sensitivity_PIPO.csv', 1, 1);
 psme = csvread('./data/Sensitivity_PSME.csv', 1, 1);
 acru = csvread('./data/Sensitivity_ACRU.csv', 1, 1);
-quco = csvread('./data/Sensitivity_QUCO.csv', 1, 1);
-quve = csvread('./data/Sensitivity_QUVE.csv', 1, 1);
-qusp = [quco; quve];
+quru = csvread('./data/Sensitivity_QURU.csv', 1, 1);
+tsca = csvread('./data/Sensitivity_TSCA.csv', 1, 1);
 
 % Plots: PIPO
 Dstar = pipo(:,1);
@@ -237,24 +249,24 @@ for i = 1:nbins
     
 end
 
-% Plots: QUSP
-Dstar = qusp(:,1);
-Dopt_bias = qusp(:, 6);
-S_bias = qusp(:, 9);
+% Plots: QURU
+Dstar = quru(:,1);
+Dopt_bias = quru(:, 6);
+S_bias = quru(:, 9);
 S_bias(~isfinite(S_bias)) = NaN;
 
-QUSP.Dopt.y = NaN(1, nbins);
-QUSP.Dopt.uci = NaN(1, nbins);
-QUSP.Dopt.lci = NaN(1, nbins);
-QUSP.S.y = NaN(1, nbins);
-QUSP.S.uci = NaN(1, nbins);
-QUSP.S.lci = NaN(1, nbins);
+QURU.Dopt.y = NaN(1, nbins);
+QURU.Dopt.uci = NaN(1, nbins);
+QURU.Dopt.lci = NaN(1, nbins);
+QURU.S.y = NaN(1, nbins);
+QURU.S.uci = NaN(1, nbins);
+QURU.S.lci = NaN(1, nbins);
 
 x = quantile(Dstar, 0:(1/nbins):1);
 bins = (0+(0.5/nbins)):(1/nbins):(1-(0.5/nbins));
 bins = quantile(Dstar, bins);
-QUSP.Dopt.bins = bins;
-QUSP.S.bins = bins;
+QURU.Dopt.bins = bins;
+QURU.S.bins = bins;
 
 for i = 1:nbins
     
@@ -266,16 +278,58 @@ for i = 1:nbins
     Dopt_sub = Dopt_bias(idx);
     S_sub = S_bias(idx);
     
-    QUSP.Dopt.y(i) = median(Dopt_sub);
-    QUSP.S.y(i) = median(S_sub);
+    QURU.Dopt.y(i) = median(Dopt_sub);
+    QURU.S.y(i) = median(S_sub);
     
     cis = quantile(Dopt_sub, quants);
-    QUSP.Dopt.lci(i) = cis(1);
-    QUSP.Dopt.uci(i) = cis(2);
+    QURU.Dopt.lci(i) = cis(1);
+    QURU.Dopt.uci(i) = cis(2);
     
     cis = quantile(S_sub, quants);
-    QUSP.S.lci(i) = cis(1);
-    QUSP.S.uci(i) = cis(2);
+    QURU.S.lci(i) = cis(1);
+    QURU.S.uci(i) = cis(2);
+    
+end
+
+% Plots: TSCA
+Dstar = tsca(:,1);
+Dopt_bias = tsca(:, 6);
+S_bias = tsca(:, 9);
+S_bias(~isfinite(S_bias)) = NaN;
+
+TSCA.Dopt.y = NaN(1, nbins);
+TSCA.Dopt.uci = NaN(1, nbins);
+TSCA.Dopt.lci = NaN(1, nbins);
+TSCA.S.y = NaN(1, nbins);
+TSCA.S.uci = NaN(1, nbins);
+TSCA.S.lci = NaN(1, nbins);
+
+x = quantile(Dstar, 0:(1/nbins):1);
+bins = (0+(0.5/nbins)):(1/nbins):(1-(0.5/nbins));
+bins = quantile(Dstar, bins);
+TSCA.Dopt.bins = bins;
+TSCA.S.bins = bins;
+
+for i = 1:nbins
+    
+    if i==1
+        idx = Dstar>=x(i) & Dstar<=x(i+1);
+    else
+        idx = Dstar>x(i) & Dstar<=x(i+1);
+    end
+    Dopt_sub = Dopt_bias(idx);
+    S_sub = S_bias(idx);
+    
+    TSCA.Dopt.y(i) = median(Dopt_sub);
+    TSCA.S.y(i) = median(S_sub);
+    
+    cis = quantile(Dopt_sub, quants);
+    TSCA.Dopt.lci(i) = cis(1);
+    TSCA.Dopt.uci(i) = cis(2);
+    
+    cis = quantile(S_sub, quants);
+    TSCA.S.lci(i) = cis(1);
+    TSCA.S.uci(i) = cis(2);
     
 end
 
@@ -285,9 +339,9 @@ end
 offs = 3;
 h = figure('Color','w');
 h.Units = 'inches';
-h.Position = [1 1 6.5 5];
+h.Position = [1 1 5 5.5];
 
-ax = tight_subplot(4,2,[0.05 0.1],[0.1 0.05], [0.1 0.05]);
+ax = tight_subplot(5,2,[0.05 0.1],[0.1 0.05], [0.12 0.05]);
 
 axes(ax(1))
 fill([PIPO.Dopt.bins fliplr(PIPO.Dopt.bins)], [PIPO.Dopt.lci fliplr(PIPO.Dopt.uci)], clr(1,:), 'FaceAlpha',0.5, 'EdgeColor','none')
@@ -295,8 +349,7 @@ set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(PIPO.Dopt.bins, PIPO.Dopt.y, '-','LineWidth',2, 'Color',clr(1,:).^2);
-text(2, 0.19, 'A) ', 'FontSize',12);
-text(10, 0.19, '\itP. ponderosa', 'FontSize',12, 'Color',clr(1,:).^2);
+text(2, 0.19, 'A) \itP. ponderosa', 'FontSize',11);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 
@@ -306,8 +359,7 @@ set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(PSME.Dopt.bins, PSME.Dopt.y, '-','LineWidth',2, 'Color',clr(2,:));
-text(2, 0.19, 'C) ', 'FontSize',12);
-text(10, 0.19, '\itP. menziesii', 'FontSize',12, 'Color',clr(2,:));
+text(2, 0.19, 'C) \itP. menziesii', 'FontSize',11);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 
@@ -317,19 +369,27 @@ set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(ACRU.Dopt.bins, ACRU.Dopt.y, '-','LineWidth',2, 'Color',clr(3,:).^2);
-text(2, 0.19, 'E) ', 'FontSize',12);
-text(10, 0.19, '\itA. rubrum', 'FontSize',12, 'Color',clr(3,:).^2);
+text(2, 0.19, 'E) \itA. rubrum', 'FontSize',11);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 
 axes(ax(7))
-fill([QUSP.Dopt.bins fliplr(QUSP.Dopt.bins)], [QUSP.Dopt.lci fliplr(QUSP.Dopt.uci)], clr(4,:), 'FaceAlpha',0.5, 'EdgeColor','none')
+fill([QURU.Dopt.bins fliplr(QURU.Dopt.bins)], [QURU.Dopt.lci fliplr(QURU.Dopt.uci)], clr(4,:), 'FaceAlpha',0.5, 'EdgeColor','none')
+set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.025 0.05]);
+hold on;
+plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
+plot(QURU.Dopt.bins, QURU.Dopt.y, '-','LineWidth',2, 'Color',clr(4,:));
+text(2, 0.19, 'G) \itQ. rubra', 'FontSize',11);
+ylabel('\DeltaD_{opt}^{*} bias (cm)');
+box off;
+
+axes(ax(9))
+fill([TSCA.Dopt.bins fliplr(TSCA.Dopt.bins)], [TSCA.Dopt.lci fliplr(TSCA.Dopt.uci)], clr(5,:), 'FaceAlpha',0.5, 'EdgeColor','none')
 set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'TickDir','out', 'TickLength',[0.025 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
-plot(QUSP.Dopt.bins, QUSP.Dopt.y, '-','LineWidth',2, 'Color',clr(4,:));
-text(2, 0.19, 'G) ', 'FontSize',12);
-text(10, 0.19, '\itQuercus sp.', 'FontSize',12, 'Color',clr(4,:));
+plot(TSCA.Dopt.bins, TSCA.Dopt.y, '-','LineWidth',2, 'Color',clr(5,:).^2);
+text(2, 0.19, 'I) \itT. canadensis', 'FontSize',11);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 xlabel('D^{*} (cm)');
@@ -342,8 +402,7 @@ set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(PIPO.S.bins, PIPO.S.y, '-','LineWidth',2, 'Color',clr(1,:).^2);
-text(2+offs, 0.96, 'B) ', 'FontSize',12);
-text(10+offs, 0.96, '\itP. ponderosa', 'FontSize',12, 'Color',clr(1,:).^2);
+text(2+offs, 0.96, 'B) \itP. ponderosa', 'FontSize',11);
 ylabel('S^{*} bias');
 box off;
 
@@ -353,8 +412,7 @@ set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(PSME.S.bins, PSME.S.y, '-','LineWidth',2, 'Color',clr(2,:));
-text(2+offs, 0.96, 'D) ', 'FontSize',12);
-text(10+offs, 0.96, '\itP. menziesii', 'FontSize',12, 'Color',clr(2,:));
+text(2+offs, 0.96, 'D) \itP. menziesii', 'FontSize',11);
 ylabel('S^{*} bias');
 box off;
 
@@ -364,19 +422,27 @@ set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(ACRU.S.bins, ACRU.S.y, '-','LineWidth',2, 'Color',clr(3,:).^2);
-text(2+offs, 0.96, 'F) ', 'FontSize',12);
-text(10+offs, 0.96, '\itA. rubrum', 'FontSize',12, 'Color',clr(3,:).^2);
+text(2+offs, 0.96, 'F) \itA. rubrum', 'FontSize',11);
 ylabel('S^{*} bias');
 box off;
 
 axes(ax(8))
-fill([QUSP.S.bins(2:end) fliplr(QUSP.S.bins(2:end))], [QUSP.S.lci(2:end) fliplr(QUSP.S.uci(2:end))], clr(4,:), 'FaceAlpha',0.5, 'EdgeColor','none')
+fill([QURU.S.bins(2:end) fliplr(QURU.S.bins(2:end))], [QURU.S.lci(2:end) fliplr(QURU.S.uci(2:end))], clr(4,:), 'FaceAlpha',0.5, 'EdgeColor','none')
+set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 'TickLength',[0.025 0.05]);
+hold on;
+plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
+plot(QURU.S.bins, QURU.S.y, '-','LineWidth',2, 'Color',clr(4,:));
+text(2+offs, 0.96, 'H) \itQ. rubra', 'FontSize',11);
+ylabel('S^{*} bias');
+box off;
+
+axes(ax(10))
+fill([TSCA.S.bins(2:end) fliplr(TSCA.S.bins(2:end))], [TSCA.S.lci(2:end) fliplr(TSCA.S.uci(2:end))], clr(5,:), 'FaceAlpha',0.5, 'EdgeColor','none')
 set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'TickDir','out', 'TickLength',[0.025 0.05]);
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
-plot(QUSP.S.bins, QUSP.S.y, '-','LineWidth',2, 'Color',clr(4,:));
-text(2+offs, 0.96, 'H) ', 'FontSize',12);
-text(10+offs, 0.96, '\itQuercus sp.', 'FontSize',12, 'Color',clr(4,:));
+plot(TSCA.S.bins, TSCA.S.y, '-','LineWidth',2, 'Color',clr(5,:).^2);
+text(2+offs, 0.96, 'J) \itT. canadensis', 'FontSize',11);
 ylabel('S^{*} bias');
 box off;
 xlabel('D^{*} (cm)');
