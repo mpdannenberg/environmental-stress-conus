@@ -240,6 +240,8 @@ xtickangle(45)
 box off;
 ylabel('\deltaS^{*} / \deltaVPD_{JJA}');
 
-
+set(gcf,'PaperPositionMode','auto')
+print('-dtiff','-f1','-r300','./output/supplemental-lme-random-effects-species.tif')
+close all;
 
 
