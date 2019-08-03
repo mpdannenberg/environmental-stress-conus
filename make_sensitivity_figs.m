@@ -28,26 +28,11 @@ plot(acru(:, 2), acru(:, 1), 'o', 'Color',clr(3, :), 'LineWidth',...
     1.2, 'MarkerSize',5);
 plot(tsca(:, 2), tsca(:, 1), 'o', 'Color',clr(5, :), 'LineWidth',...
     1.2, 'MarkerSize',5);
-% [r, p] = corr(pipo, 'type','Spearman');
-% text(5, 142, '\itP. ponderosa', 'FontSize',11, 'Color',clr(1, :))
-% text(5, 136, ['n = ', num2str(length(pipo(:, 2)))], 'FontSize',11, 'Color',clr(1, :))
-% text(5, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(1, :))
-% [r, p] = corr(psme, 'type','Spearman');
-% text(5, 118, '\itP. menziesii', 'FontSize',11, 'Color',clr(2, :))
-% text(5, 112, ['n = ', num2str(length(psme(:, 2)))], 'FontSize',11, 'Color',clr(2, :))
-% text(5, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(2, :))
-% [r, p] = corr(acru, 'type','Spearman');
-% text(45, 142, '\itA. rubrum', 'FontSize',11, 'Color',clr(3, :))
-% text(45, 136, ['n = ', num2str(length(acru(:, 2)))], 'FontSize',11, 'Color',clr(3, :))
-% text(45, 130, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(3, :))
-% [r, p] = corr(quru, 'type','Spearman');
-% text(45, 118, '\itQ. rubra', 'FontSize',11, 'Color',clr(4, :))
-% text(45, 112, ['n = ', num2str(length(quru(:, 2)))], 'FontSize',11, 'Color',clr(4, :))
-% text(45, 106, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(4, :))
-% [r, p] = corr(tsca, 'type','Spearman');
-% text(5, 118-24, '\itT. canadensis', 'FontSize',11, 'Color',clr(5, :))
-% text(5, 112-24, ['n = ', num2str(length(tsca(:, 2)))], 'FontSize',11, 'Color',clr(5, :))
-% text(5, 106-24, ['\rho = ', num2str(round(r(1,2), 2))], 'FontSize',11, 'Color',clr(5, :))
+text(5, 142, '\itP. ponderosa', 'FontSize',11, 'Color',clr(1, :))
+text(5, 132, '\itP. menziesii', 'FontSize',11, 'Color',clr(2, :))
+text(5, 122, '\itA. rubrum', 'FontSize',11, 'Color',clr(3, :))
+text(5, 112, '\itQ. rubra', 'FontSize',11, 'Color',clr(4, :))
+text(5, 102, '\itT. canadensis', 'FontSize',11, 'Color',clr(5, :))
 xlabel('Measured DBH (cm)', 'FontSize',12);
 ylabel('Estimated DBH (cm)', 'FontSize',12);
 set(gca, 'Position',[0.1300    0.43    0.7750    0.5154]);
