@@ -418,8 +418,8 @@ caxis([0 100])
 colormap(clr2(2:end,:));
 set(gca, 'XLim', [-0.1 2.1], 'YLim',[-0.1 2.1], 'TickDir','out',...
     'TickLength',[0.02 0.03], 'XTick',0:0.5:2, 'YTick',0:0.5:2);
-xlabel('Observed \itS^{*}');
-ylabel('Predicted \itS^{*}');
+xlabel('Observed \itS_{r}');
+ylabel('Predicted \itS_{r}');
 text(0,2, ['R^{2}_{adj} = ', num2str(round(lme0_bic.Rsquared.Adjusted ,2))]);
 
 cb=colorbar('eastoutside');
