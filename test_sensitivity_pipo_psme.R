@@ -65,7 +65,7 @@ comp.dopt = function(rwl, info, pars){
   return(list(d.naive, d.act, dopt.naive, dopt.act, rwl))
 }
 
-source("C:\\Users\\C-TRES\\Documents\\Matt\\Code\\StressIndexFunctions.R")
+source("StressIndexFunctions.R")
 
 
 #####  PIPO  #####
