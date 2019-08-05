@@ -1,4 +1,4 @@
-## Estimate sensitivity of A. rubrum and Quercus sp. to DBH uncertainty
+## Estimate sensitivity of A. rubrum, Q. rubra, and T. canadensis to DBH uncertainty
 
 ## Load necessary functions and parameters
 library(dplR)
