@@ -36,7 +36,7 @@ text(5, 102, '\itT. canadensis', 'FontSize',11, 'Color',clr(5, :))
 xlabel('Measured DBH (cm)', 'FontSize',12);
 ylabel('Estimated DBH (cm)', 'FontSize',12);
 set(gca, 'Position',[0.1300    0.43    0.7750    0.5154]);
-text(-23, 150, 'A', 'FontSize',14, 'FontWeight','bold');
+text(-23, 150, 'a', 'FontSize',14, 'FontWeight','bold');
 
 subplot(3, 1, 3)
 Y1 = histcounts(pipo(:, 1)-pipo(:, 2), -100:5:20);
@@ -56,7 +56,7 @@ set(gca, 'Position',[0.1300    0.09    0.7750    0.2157]);
 box off;
 xlabel('DBH bias (cm)', 'FontSize',12);
 ylabel('Count', 'FontSize',12);
-text(-124, 320, 'B', 'FontSize',14, 'FontWeight','bold');
+text(-124, 320, 'b', 'FontSize',14, 'FontWeight','bold');
 
 set(gcf,'PaperPositionMode','auto')
 print('-dtiff','-f1','-r300','./output/dbh-bias.tif')
@@ -334,7 +334,7 @@ set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(PIPO.Dopt.bins, PIPO.Dopt.y, '-','LineWidth',2, 'Color',clr(1,:).^2);
-text(2, 0.19, 'A) \itP. ponderosa', 'FontSize',11);
+text(2, 0.19, 'a) \itP. ponderosa', 'FontSize',11);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 
@@ -344,7 +344,7 @@ set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(PSME.Dopt.bins, PSME.Dopt.y, '-','LineWidth',2, 'Color',clr(2,:));
-text(2, 0.19, 'C) \itP. menziesii', 'FontSize',11);
+text(2, 0.19, 'c) \itP. menziesii', 'FontSize',11);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 
@@ -354,7 +354,7 @@ set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(ACRU.Dopt.bins, ACRU.Dopt.y, '-','LineWidth',2, 'Color',clr(3,:).^2);
-text(2, 0.19, 'E) \itA. rubrum', 'FontSize',11);
+text(2, 0.19, 'e) \itA. rubrum', 'FontSize',11);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 
@@ -364,7 +364,7 @@ set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(QURU.Dopt.bins, QURU.Dopt.y, '-','LineWidth',2, 'Color',clr(4,:));
-text(2, 0.19, 'G) \itQ. rubra', 'FontSize',11);
+text(2, 0.19, 'g) \itQ. rubra', 'FontSize',11);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 
@@ -374,7 +374,7 @@ set(gca, 'YLim',[-0.44 0.24],'XLim', [0 90], 'TickDir','out', 'TickLength',[0.02
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(TSCA.Dopt.bins, TSCA.Dopt.y, '-','LineWidth',2, 'Color',clr(5,:).^2);
-text(2, 0.19, 'I) \itT. canadensis', 'FontSize',11);
+text(2, 0.19, 'i) \itT. canadensis', 'FontSize',11);
 ylabel('\DeltaD_{opt}^{*} bias (cm)');
 box off;
 xlabel('D^{*} (cm)');
@@ -387,7 +387,7 @@ set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(PIPO.S.bins, PIPO.S.y, '-','LineWidth',2, 'Color',clr(1,:).^2);
-text(2+offs, 0.96, 'B) \itP. ponderosa', 'FontSize',11);
+text(2+offs, 0.96, 'b) \itP. ponderosa', 'FontSize',11);
 ylabel('S^{*} bias');
 box off;
 
@@ -397,7 +397,7 @@ set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(PSME.S.bins, PSME.S.y, '-','LineWidth',2, 'Color',clr(2,:));
-text(2+offs, 0.96, 'D) \itP. menziesii', 'FontSize',11);
+text(2+offs, 0.96, 'd) \itP. menziesii', 'FontSize',11);
 ylabel('S^{*} bias');
 box off;
 
@@ -407,7 +407,7 @@ set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(ACRU.S.bins, ACRU.S.y, '-','LineWidth',2, 'Color',clr(3,:).^2);
-text(2+offs, 0.96, 'F) \itA. rubrum', 'FontSize',11);
+text(2+offs, 0.96, 'f) \itA. rubrum', 'FontSize',11);
 ylabel('S^{*} bias');
 box off;
 
@@ -417,7 +417,7 @@ set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'XTickLabels','', 'TickDir','out', 
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(QURU.S.bins, QURU.S.y, '-','LineWidth',2, 'Color',clr(4,:));
-text(2+offs, 0.96, 'H) \itQ. rubra', 'FontSize',11);
+text(2+offs, 0.96, 'h) \itQ. rubra', 'FontSize',11);
 ylabel('S^{*} bias');
 box off;
 
@@ -427,7 +427,7 @@ set(gca, 'YLim',[-0.28 1.05],'XLim', [0 90], 'TickDir','out', 'TickLength',[0.02
 hold on;
 plot([0 90], [0 0], 'k-', 'LineWidth',0.3);
 plot(TSCA.S.bins, TSCA.S.y, '-','LineWidth',2, 'Color',clr(5,:).^2);
-text(2+offs, 0.96, 'J) \itT. canadensis', 'FontSize',11);
+text(2+offs, 0.96, 'j) \itT. canadensis', 'FontSize',11);
 ylabel('S^{*} bias');
 box off;
 xlabel('D^{*} (cm)');

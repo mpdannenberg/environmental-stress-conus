@@ -1,7 +1,7 @@
 % Map spearman rank correlations between climate variables and
 % environmental stress index
 
-alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+alphabet = lower('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
 % Number of vars for each environmental stress type
 nTopo = 4;

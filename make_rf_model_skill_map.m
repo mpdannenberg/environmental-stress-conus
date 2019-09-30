@@ -68,7 +68,7 @@ colormap(cbrew);
 geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.4 0.4 0.4])
 axis off;
 axis image;
-text(-0.42, 0.85, 'A', 'FontName','Helvetica', 'FontSize',12, 'FontWeight','bold');
+text(-0.42, 0.85, 'a', 'FontName','Helvetica', 'FontSize',12, 'FontWeight','bold');
 text(-0.05, 0.96, 'TSC model', 'FontName','Helvetica', 'FontSize',14,...
     'FontWeight','bold','HorizontalAlignment','center');
 ax.Position = [0.05 0.56 0.4 0.36];
@@ -124,7 +124,7 @@ colormap(cbrew);
 geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.4 0.4 0.4])
 axis off;
 axis image;
-text(-0.42, 0.85, 'B', 'FontName','Helvetica', 'FontSize',12, 'FontWeight','bold');
+text(-0.42, 0.85, 'b', 'FontName','Helvetica', 'FontSize',12, 'FontWeight','bold');
 text(-0.05, 0.96, 'C model', 'FontName','Helvetica', 'FontSize',14,...
     'FontWeight','bold','HorizontalAlignment','center');
 ax.Position = [0.5703 0.56 0.4 0.36];
@@ -181,7 +181,7 @@ colormap(cbrew);
 geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.4 0.4 0.4])
 axis off;
 axis image;
-text(-0.42, 0.85, 'C', 'FontName','Helvetica', 'FontSize',12, 'FontWeight','bold');
+text(-0.42, 0.85, 'c', 'FontName','Helvetica', 'FontSize',12, 'FontWeight','bold');
 ax.Position = [0.05 0.18 0.4 0.36];
 
 
@@ -236,7 +236,7 @@ colormap(cbrew);
 geoshow(states,'FaceColor','none','LineWidth',0.3, 'EdgeColor',[0.4 0.4 0.4])
 axis off;
 axis image;
-text(-0.42, 0.85, 'D', 'FontName','Helvetica', 'FontSize',12, 'FontWeight','bold');
+text(-0.42, 0.85, 'd', 'FontName','Helvetica', 'FontSize',12, 'FontWeight','bold');
 ax.Position = [0.5703 0.18 0.4 0.36];
 
 h = colorbar('southoutside');
