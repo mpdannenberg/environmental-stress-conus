@@ -13,10 +13,10 @@ nWater = 8;
 
 % Names of variables
 TopoLabs = {'ELEV','SLOPE','UAA','TWI'};
-SoilLabs = {'CLAY','OC','PHCA','SAND','SILT','TN'};
+SoilLabs = {'CLAY','OC','pH','SAND','SILT','TN'};
 TempLabs = {'TMIN_{SON}','TMIN_{DJF}','TMIN_{MAM}','TMIN_{JJA}',...
 	'TMAX_{SON}','TMAX_{DJF}','TMAX_{MAM}','TMAX_{JJA}'};
-WaterLabs = {'WB_{SON}','WB_{DJF}','WB_{MAM}','WB_{JJA}',...
+WaterLabs = {'CWB_{SON}','CWB_{DJF}','CWB_{MAM}','CWB_{JJA}',...
 	'VPD_{SON}','VPD_{DJF}','VPD_{MAM}','VPD_{JJA}'};
 AllLabs = [TopoLabs SoilLabs TempLabs WaterLabs];
 
