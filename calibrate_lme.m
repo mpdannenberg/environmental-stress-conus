@@ -243,6 +243,52 @@ set(gcf,'PaperPositionMode','auto')
 print('-dtiff','-f1','-r300','./output/supplemental-lme-random-effects-species.tif')
 close all;
 
+%% Map site-level random effects
+load ./data/TREESI_wEnvFactors;
+stats = stats(199:end, :);
+site1 = stats.Level;
+site1 = split(site1, ' ');
+site1 = site1(:, 2);
+site2 = {TREESI.SITE}';
+index = cell2mat(cellfun(@(a) strmatch(a,site2,'exact'),site1,'uniform',false));
+lat = [TREESI.LAT]; lat = lat(index);
+lon = [TREESI.LON]; lon = lon(index);
+
+states = shaperead('usastatehi','UseGeoCoords', true);
+latlim = [24 49];
+lonlim = [-125 -67];
+
+clr = wesanderson('fantasticfox1');
+grn = make_cmap([1 1 1; clr(3,:); clr(3,:).^3], 5);
+prpl = make_cmap([1 1 1; sqrt(clr(4,:)); clr(4,:)], 5);
+cbrew = flipud([flipud(grn(2:end, :)); prpl(2:5, :)]);
+
+h = figure('Color','w');
+h.Units = 'inches';
+h.Position = [1 1 7 4];
+
+ax = axesm('lambert','MapLatLimit',latlim,'MapLonLimit',lonlim,'grid',...
+        'on','PLineLocation',[28,34,40,46],'MLineLocation',10,'MeridianLabel','on',...
+        'ParallelLabel','on','GLineWidth',0.3,'Frame','off','FFaceColor',...
+        'none', 'FontName', 'Times New Roman', 'GColor',[0.8 0.8 0.8],...
+        'FLineWidth',1, 'FontColor',[0.4 0.4 0.4], 'MLabelLocation',20,...
+        'MLabelParallel',24.01);
+scatterm(lat, lon, 25, stats.Estimate, 'filled', 'MarkerEdgeColor','k');
+geoshow(states,'FaceColor','none','LineWidth',0.4)
+caxis([-0.4 0.4])
+colormap(cbrew)
+axis off;
+axis image;
+
+cb = colorbar('eastoutside');
+cb.TickLength = 0.08;
+ylabel(cb, 'Site-level random effect', 'FontSize',11);
+
+set(gcf,'PaperPositionMode','auto')
+print('-dtiff','-f1','-r300','./output/supplemental-lme-random-effects-site.tif')
+close all;
+
+
 %% Plot model predictions
 h = figure('Color','w');
 h.Units = 'inches';
