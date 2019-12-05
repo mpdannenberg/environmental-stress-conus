@@ -170,25 +170,21 @@ h.Position = [1 1 6.5 6.5];
 
 % Random intercept
 idx = strcmp(Bnames.Group, 'Species') & strcmp(Bnames.Name, '(Intercept)');
-b = lme0_coeffs.Estimate(2);
-bse = lme0_coeffs.SE(2);
 u = stats.Estimate(idx);
 uli = stats.Lower(idx);
 uui = stats.Upper(idx);
 
 subplot(4,1,1)
-fill([0 34 34 0], [b-bse*1.96 b-bse*1.96 b+bse*1.96 b+bse*1.96], 'k',...
-    'EdgeColor','none', 'FaceAlpha',0.1)
+plot([0 34], [0 0], '-', 'LineWidth',1.5, 'Color',[0.4 0.4 0.4])
 hold on;
-plot([0 34], [b b], '-', 'LineWidth',1.5, 'Color',[0.4 0.4 0.4])
 for i = 1:length(u)
-    plot([i i], [b+uli(i) b+uui(i)], 'k-', 'LineWidth',1);
-    scatter(i, b+u(i), 10, 'k', 'filled','MarkerFaceColor','w',...
+    plot([i i], [uli(i) uui(i)], 'k-', 'LineWidth',1);
+    scatter(i, u(i), 10, 'k', 'filled','MarkerFaceColor','w',...
         'LineWidth',1.5, 'MarkerEdgeColor','k')
 end
 set(gca, 'XLim',[0 34], 'XTick', 1:33, 'TickDir','out', 'XTickLabels','')
 box off;
-ylabel('\deltaS^{*} / \deltaTMIN_{DJF}');
+ylabel('Random intercept');
 
 
 % Tmin
@@ -199,7 +195,7 @@ u = stats.Estimate(idx);
 uli = stats.Lower(idx);
 uui = stats.Upper(idx);
 
-subplot(3,1,1)
+subplot(4,1,2)
 fill([0 34 34 0], [b-bse*1.96 b-bse*1.96 b+bse*1.96 b+bse*1.96], 'k',...
     'EdgeColor','none', 'FaceAlpha',0.1)
 hold on;
@@ -223,7 +219,7 @@ uli = stats.Lower(idx);
 uui = stats.Upper(idx);
 spc = Bnames.Level(idx);
 
-subplot(3,1,2)
+subplot(4,1,3)
 fill([0 34 34 0], [b-bse*1.96 b-bse*1.96 b+bse*1.96 b+bse*1.96], 'k',...
     'EdgeColor','none', 'FaceAlpha',0.1)
 hold on;
@@ -247,7 +243,7 @@ u = stats.Estimate(idx);
 uli = stats.Lower(idx);
 uui = stats.Upper(idx);
 
-subplot(3,1,3)
+subplot(4,1,4)
 fill([0 34 34 0], [b-bse*1.96 b-bse*1.96 b+bse*1.96 b+bse*1.96], 'k',...
     'EdgeColor','none', 'FaceAlpha',0.1)
 hold on;
