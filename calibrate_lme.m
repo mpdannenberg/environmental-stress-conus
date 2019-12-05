@@ -185,6 +185,7 @@ end
 set(gca, 'XLim',[0 34], 'XTick', 1:33, 'TickDir','out', 'XTickLabels','')
 box off;
 ylabel('Random intercept');
+text(1, 0.4, 'a', 'FontSize',12, 'HorizontalAlignment','center');
 
 
 % Tmin
@@ -208,6 +209,7 @@ end
 set(gca, 'XLim',[0 34], 'XTick', 1:33, 'TickDir','out', 'XTickLabels','')
 box off;
 ylabel('\deltaS^{*} / \deltaTMIN_{DJF}');
+text(1, 0.02, 'b', 'FontSize',12, 'HorizontalAlignment','center');
 
 
 % CWB
@@ -232,6 +234,7 @@ end
 set(gca, 'XLim',[0 34], 'XTick', 1:33, 'TickDir','out', 'XTickLabels','')
 box off;
 ylabel('\deltaS^{*} / \deltaCWB_{DJF}');
+text(1, -0.00018, 'c', 'FontSize',12, 'HorizontalAlignment','center');
 
 
 % VPD
@@ -257,6 +260,7 @@ set(gca, 'XLim',[0 34], 'XTick', 1:33, 'TickDir','out', 'XTickLabels',spc)
 xtickangle(45)
 box off;
 ylabel('\deltaS^{*} / \deltaVPD_{JJA}');
+text(1, 0.48, 'd', 'FontSize',12, 'HorizontalAlignment','center');
 
 set(gcf,'PaperPositionMode','auto')
 print('-dtiff','-f1','-r300','./output/supplemental-lme-random-effects-species.tif')
