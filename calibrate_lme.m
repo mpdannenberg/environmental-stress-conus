@@ -131,7 +131,7 @@ FE_TMIN = 'TMIN_DJF';
 FE_WB = 'WB_DJF'; 
 FE_VPD = 'VPD_JJA';
 FE_Site = '(ELEV + TWI + SILT + OC + TN + PHCA + mTMIN_DJF + mWB_DJF + mVPD_JJA)';
-REff = ['+ (',FE_TMIN,' | Species) + (',FE_WB,' | Species) + (',FE_VPD,' | Species) + (1 | Species:Site)'];
+REff = ['+ (-1+',FE_TMIN,' | Species) + (-1+',FE_WB,' | Species) + (-1+',FE_VPD,' | Species) + (1 | Species) + (1 | Species:Site)'];
 np = 4; % number of predictors (intercept + main effects)
 
 % Initial full model - selection by BIC
@@ -166,7 +166,30 @@ lme0_coeffs = dataset2table(lme0_bic.Coefficients);
 
 h = figure('Color','w');
 h.Units = 'inches';
-h.Position = [1 1 6.5 5];
+h.Position = [1 1 6.5 6.5];
+
+% Random intercept
+idx = strcmp(Bnames.Group, 'Species') & strcmp(Bnames.Name, '(Intercept)');
+b = lme0_coeffs.Estimate(2);
+bse = lme0_coeffs.SE(2);
+u = stats.Estimate(idx);
+uli = stats.Lower(idx);
+uui = stats.Upper(idx);
+
+subplot(4,1,1)
+fill([0 34 34 0], [b-bse*1.96 b-bse*1.96 b+bse*1.96 b+bse*1.96], 'k',...
+    'EdgeColor','none', 'FaceAlpha',0.1)
+hold on;
+plot([0 34], [b b], '-', 'LineWidth',1.5, 'Color',[0.4 0.4 0.4])
+for i = 1:length(u)
+    plot([i i], [b+uli(i) b+uui(i)], 'k-', 'LineWidth',1);
+    scatter(i, b+u(i), 10, 'k', 'filled','MarkerFaceColor','w',...
+        'LineWidth',1.5, 'MarkerEdgeColor','k')
+end
+set(gca, 'XLim',[0 34], 'XTick', 1:33, 'TickDir','out', 'XTickLabels','')
+box off;
+ylabel('\deltaS^{*} / \deltaTMIN_{DJF}');
+
 
 % Tmin
 idx = strcmp(Bnames.Group, 'Species') & strcmp(Bnames.Name, 'TMIN_DJF');
