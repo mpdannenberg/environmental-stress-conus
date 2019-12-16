@@ -444,7 +444,7 @@ FE_TMIN = 'TMIN_DJF';
 FE_WB = 'WB_DJF'; 
 FE_VPD = 'VPD_JJA';
 FE_Site = '(ELEV + TWI + SILT + OC + TN + PHCA + mTMIN_DJF + mWB_DJF + mVPD_JJA)';
-REff = ['+ (',FE_TMIN,' | Species) + (',FE_WB,' | Species) + (',FE_VPD,' | Species) + (1 | Species:Site)'];
+REff = ['+ (-1+',FE_TMIN,' | Species) + (-1+',FE_WB,' | Species) + (-1+',FE_VPD,' | Species) + (1 | Species) + (1 | Species:Site)'];
 np = 4; % number of predictors (intercept + main effects)
 
 % Initial full model - selection by BIC
