@@ -4,13 +4,13 @@ syear = 1971;
 
 % Number of vars for each environmental stress type
 nTopo = 4;
-nSoil = 7; % Subject to change
+nSoil = 6; 
 nTemp = 8;
 nWater = 8;
 
 % Names of variables
 TopoLabs = {'ELEV','SLOPE','UAA','TWI'};
-SoilLabs = {'CLAY','OC','PHCA','SAND','SILT','TN','VMC2'};
+SoilLabs = {'CLAY','OC','PHCA','SAND','SILT','TN'};
 TempLabs = {'TMIN_SON','TMIN_DJF','TMIN_MAM','TMIN_JJA',...
 	'TMAX_SON','TMAX_DJF','TMAX_MAM','TMAX_JJA'};
 WaterLabs = {'WB_SON','WB_DJF','WB_MAM','WB_JJA',...
@@ -38,7 +38,7 @@ T = table('size',[n 2+nTopo+nSoil+nTemp*2+nWater*2+2], 'VariableTypes',...
     'double','double','double','double','double','double','double',...
     'double','double','double','double','double','double','double',...
     'double','double','double','double','double','double','double',...
-    'double','double','double','string','string'},...
+    'double','double','string','string'},...
     'VariableNames',AllLabs);
 idx0 = 1;
 
@@ -61,8 +61,7 @@ for i = 1:length(TREESI)
     T.SAND(idx) = TREESI(i).GSDE.SAND;
     T.SILT(idx) = TREESI(i).GSDE.SILT;
     T.TN(idx) = TREESI(i).GSDE.TN;
-    T.VMC2(idx) = TREESI(i).GSDE.VMC2; % volumetric water content at -33 kPa
-
+    
     T.Site(idx) = TREESI(i).SITE;
     T.Species(idx) = TREESI(i).SPECIES;
     
@@ -351,7 +350,7 @@ T = table('size',[n 2+nTopo+nSoil+nTemp*2+nWater*2+2], 'VariableTypes',...
     'double','double','double','double','double','double','double',...
     'double','double','double','double','double','double','double',...
     'double','double','double','double','double','double','double',...
-    'double','double','double','string','string'},...
+    'double','double','string','string'},...
     'VariableNames',AllLabs);
 idx0 = 1;
 
@@ -374,8 +373,7 @@ for i = 1:length(TREESI)
     T.SAND(idx) = TREESI(i).GSDE.SAND;
     T.SILT(idx) = TREESI(i).GSDE.SILT;
     T.TN(idx) = TREESI(i).GSDE.TN;
-    T.VMC2(idx) = TREESI(i).GSDE.VMC2; % volumetric water content at -33 kPa
-
+    
     T.Site(idx) = TREESI(i).SITE;
     T.Species(idx) = TREESI(i).SPECIES;
     
