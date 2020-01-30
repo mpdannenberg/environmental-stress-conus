@@ -31,6 +31,17 @@ treesi_read.m
 treesi_read_environmental_data.m
 
 
+## Read and process relative stress index from ITRDB data
+### Read ITRDB metadata and detrend with spline
+read_itrdb.r
+
+### Read detrended ITRDB chronologies into MATLAB structure
+read_itrdb.m
+
+### Read environmental data into ITRDB MATLAB structure
+treesi_read_environmental_data_sr.m
+
+
 ## Climate, soil, and topography analyses
 ### Calculate correlation coefficients and calibrate RF models for each ecoregion and each variable subset (WARNING: very slow and create new folders and lots of files)
 calibrate_rf_sstar_C.m
@@ -40,6 +51,16 @@ calibrate_rf_sstar_SC.m
 calibrate_rf_sstar_TC.m
 
 calibrate_rf_sstar_TSC.m
+
+
+### Calculate correlation coefficients and calibrate RF models for each ecoregion and each variable subset FOR THE RELATIVE STRESS INDEX (Sr) (WARNING: very slow and create new folders and lots of files)
+calibrate_rf_sr_C.m
+
+calibrate_rf_sr_SC.m
+
+calibrate_rf_sr_TC.m
+
+calibrate_rf_sr_TSC.m
 
 
 ### Fit linear mixed effects models with interactions
