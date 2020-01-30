@@ -28,7 +28,7 @@ smonth = 9; % September
 
 
 %% Load/process datasets
-load TREESI_wEnvFactors3;
+load TREESI_wEnvFactors_RSI;
 
 EcoL1 = [TREESI.EcoL1];
 EcoL2 = [TREESI.EcoL2];
