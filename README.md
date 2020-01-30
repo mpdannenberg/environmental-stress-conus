@@ -79,13 +79,21 @@ make_rf_variable_importance_figure.m
 build_table_rf_sstar.m
 
 
-## Miscellaneous figures
+## Miscellaneous and supplemental figures
 ### Map of ITRDB sites used in the analysis
 make_itrdb_sites_map.m
 
 
 ### Map of sample depth by site
 make_supplemental_sample_depth_map.m
+
+
+### Supplemental tables and figures for relative stress index
+make_supplemental_rsi_correlation_maps.m
+
+make_supplemental_rsi_rf_variable_importance_figure.m
+
+build_table_rf_sr.m
 
 
 ## Notes
